@@ -18,8 +18,8 @@ class CourseController extends Controller
         return view('courses/create');
     }
 
-    public function store(){
-        dd("Curso cadastrado");
+    public function store(Request $request){
+        dd($request);
     }
 
     public function edit(){

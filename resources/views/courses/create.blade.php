@@ -7,5 +7,20 @@
 </head>
 <body>
     <h1>Cadastrar curso</h1>
+        <a href="{{ route('course.index') }}">Listar cursos</a><br>
+        <a href="{{ route('course.show') }}">Visualizar curso</a><br>
+        <a href="{{ route('course.create') }}">Cadastrar curso</a><br>
+        <a href="{{ route('course.edit') }}">Editar curso</a><br>
+        <a href="{{ route('course.destroy') }}">Apagar curso</a><br><br><br>
+
+    <form action="{{ route('course.store') }}" method="POST">
+        @csrf 
+        @method('POST')
+        
+        <label>Nome:</label>
+        <input type="text" name="name" id="name" placeholder="Nome do curso" 
+            required value="{{ old('name') }}" /> <br><br>
+        <button type="submit">Cadastrar</button>
+    </form>
 </body>
 </html>
