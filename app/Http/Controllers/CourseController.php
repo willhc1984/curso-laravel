@@ -8,7 +8,9 @@ use Illuminate\Http\Request;
 class CourseController extends Controller
 {
    public function index(){
-        return view('courses/index');
+        $cursos = Course::orderByDesc('created_at')->paginate(5);
+        //dd($cursos);
+        return view('courses/index', ['courses' => $cursos]);
     }
 
     public function show(){
