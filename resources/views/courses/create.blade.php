@@ -13,7 +13,7 @@
         <a href="{{ route('course.edit') }}">Editar curso</a><br>
         <a href="{{ route('course.destroy') }}">Apagar curso</a><br><br><br>
 
-    <form action="{{ route('course.store') }}" method="POST">
+    <form action="{{ route('course.store') }}" method="POST">    
         @csrf 
         @method('POST')
         

@@ -7,6 +7,13 @@
 </head>
 <body>
     <h1>Detalhes do curso</h1>
+
+        @if(session('success'))
+            <p style="color: #082">
+                {{ session('success') }}
+            </p>
+        @endif
+
         <a href="{{ route('course.index') }}">Listar cursos</a><br>
         <a href="{{ route('course.show') }}">Visualizar curso</a><br>
         <a href="{{ route('course.create') }}">Cadastrar curso</a><br>

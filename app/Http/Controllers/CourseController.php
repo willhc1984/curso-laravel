@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
@@ -19,7 +20,11 @@ class CourseController extends Controller
     }
 
     public function store(Request $request){
-        dd($request);
+        //dd($request);
+        Course::create(
+            ['name' => $request->name]
+        );
+        return redirect()->route('course.show')->with('success','Curso cadastrado com sucesso!');
     }
 
     public function edit(){
