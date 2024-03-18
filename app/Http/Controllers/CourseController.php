@@ -14,8 +14,10 @@ class CourseController extends Controller
     }
 
     public function show(Request $request){
+
         // Recuperar informações do BD
         $course = Course::where('id', $request->courseId)->first();
+        
         // Carregar view
         return view('courses/show', ['course' => $course]);
     }
