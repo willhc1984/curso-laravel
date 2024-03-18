@@ -21,7 +21,7 @@ Route::get('/', function () {
 
 //Cursos
 Route::get('/index-course', [CourseController::class, 'index'])->name('course.index');
-Route::get('/show-course', [CourseController::class, 'show'])->name('course.show');
+Route::get('/show-course/{courseId}', [CourseController::class, 'show'])->name('course.show');
 Route::get('/create-course', [CourseController::class, 'create'])->name('course.create');
 Route::post('/store-course', [CourseController::class, 'store'])->name('course.store');
 Route::get('/edit-course', [CourseController::class, 'edit'])->name('course.edit');

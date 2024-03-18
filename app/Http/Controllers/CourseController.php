@@ -13,8 +13,11 @@ class CourseController extends Controller
         return view('courses/index', ['courses' => $cursos]);
     }
 
-    public function show(){
-        return view('courses/show');
+    public function show(Request $request){
+        // Recuperar informações do BD
+        $course = Course::where('id', $request->courseId)->first();
+        // Carregar view
+        return view('courses/show', ['course' => $course]);
     }
 
     public function create(){

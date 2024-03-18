@@ -6,7 +6,11 @@
     <title>Celke</title>
 </head>
 <body>
-    <h1>Detalhes do curso</h1>
+
+        <a href="{{ route('course.index') }}">Listar cursos</a><br>
+        <a href="{{ route('course.create') }}">Cadastrar curso</a><br>
+        <a href="{{ route('course.edit') }}">Editar curso</a><br>
+        <a href="{{ route('course.destroy') }}">Apagar curso</a><br><br>
 
         @if(session('success'))
             <p style="color: #082">
@@ -14,10 +18,14 @@
             </p>
         @endif
 
-        <a href="{{ route('course.index') }}">Listar cursos</a><br>
-        <a href="{{ route('course.show') }}">Visualizar curso</a><br>
-        <a href="{{ route('course.create') }}">Cadastrar curso</a><br>
-        <a href="{{ route('course.edit') }}">Editar curso</a><br>
-        <a href="{{ route('course.destroy') }}">Apagar curso</a><br>
-</body>
+        <h1>Detalhes do curso</h1>
+
+        ID: {{ $course->id }} <br>
+        Nome: {{ $course->name }} <br>
+        Data do cadastro: {{ \Carbon\Carbon::parse($course->created_at)->tz('America/Sao_paulo')
+                ->format('d/m/Y H:i:s') }} <br>
+        Editado: {{ \Carbon\Carbon::parse($course->updated_at)->tz('America/Sao_paulo')
+            ->format('d/m/Y H:i:s') }} <br>
+
+    </body>
 </html>
