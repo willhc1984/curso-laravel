@@ -13,10 +13,10 @@ class CourseController extends Controller
         return view('courses/index', ['courses' => $cursos]);
     }
 
-    public function show(Request $request){
+    public function show(Request $request, Course $course){
 
         // Recuperar informações do BD
-        $course = Course::where('id', $request->courseId)->first();
+        //$course = Course::where('id', $request->course)->first();
         
         // Carregar view
         return view('courses/show', ['course' => $course]);
@@ -34,12 +34,20 @@ class CourseController extends Controller
         return redirect()->route('course.show')->with('success','Curso cadastrado com sucesso!');
     }
 
-    public function edit(){
-        return view('courses/edit');
+    public function edit(Request $request, Course $course){
+
+        //$course = Course::where('id', $request->course)->first();
+        //dd($course);
+
+        return view('courses/edit', ['course' => $course]);
     }
 
-    public function update(){
-        dd('Curso atualizado');
+    public function update(Request $request, Course $course){
+        //Atualiza no banco de dados
+        $course->update(['name' => $request->name]);
+        //Redirecionar usuario
+        return redirect()->route('course.show', ['course' => $request->course])
+            ->with('success', 'Curso editado com successo!');
     }
 
     public function destroy(){

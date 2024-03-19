@@ -9,8 +9,7 @@
 
         <a href="{{ route('course.index') }}">Listar cursos</a><br>
         <a href="{{ route('course.create') }}">Cadastrar curso</a><br>
-        <a href="{{ route('course.edit') }}">Editar curso</a><br>
-        <a href="{{ route('course.destroy') }}">Apagar curso</a><br><br>
+        <a href="{{ route('course.edit', ['course' => $course->id]) }}">Editar curso</a><br>
 
         @if(session('success'))
             <p style="color: #082">

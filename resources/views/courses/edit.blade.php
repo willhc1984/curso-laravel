@@ -7,10 +7,22 @@
 </head>
 <body>
     <h1>Editar curso</h1>
+
         <a href="{{ route('course.index') }}">Listar cursos</a><br>
-        <a href="{{ route('course.show') }}">Visualizar curso</a><br>
-        <a href="{{ route('course.create') }}">Cadastrar curso</a><br>
-        <a href="{{ route('course.edit') }}">Editar curso</a><br>
-        <a href="{{ route('course.destroy') }}">Apagar curso</a><br>
+        <a href="{{ route('course.create') }}">Cadastrar curso</a><br><br>
+        <a href="{{ route('course.show', ['course' => $course->id]) }}">Visualizar</a><br>
+
+        <form action="{{ route('course.update', ['course' => $course->id]) }}" method="POST">
+            @csrf
+            @method('PUT')
+
+            <label>Nome:</label>
+            <input type="text" name="name" id="name" value="{{ old('name', $course->name) }}" 
+                placeholder="Nome do curso" required><br><br>
+            <button type="submit">Salvar</button>
+
+        </form>
+        
+       
 </body>
 </html>
