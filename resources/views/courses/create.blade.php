@@ -7,10 +7,7 @@
 </head>
 <body>
     <h1>Cadastrar curso</h1>
-        <a href="{{ route('course.index') }}">Listar cursos</a><br>
-        
-        <a href="{{ route('course.create') }}">Cadastrar curso</a><br>
-        <a href="{{ route('course.destroy') }}">Apagar curso</a><br><br><br>
+        <a href="{{ route('course.index') }}">Listar cursos</a><br><br><br>
 
     <form action="{{ route('course.store') }}" method="POST">    
         @csrf 
@@ -21,5 +18,6 @@
             required value="{{ old('name') }}" /> <br><br>
         <button type="submit">Cadastrar</button>
     </form>
+
 </body>
 </html>

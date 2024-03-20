@@ -28,10 +28,11 @@ class CourseController extends Controller
 
     public function store(Request $request){
         //dd($request);
-        Course::create(
+       $course =  Course::create(
             ['name' => $request->name]
         );
-        return redirect()->route('course.show')->with('success','Curso cadastrado com sucesso!');
+        return redirect()->route('course.show', ['course' => $course->id])
+            ->with('success','Curso cadastrado com sucesso!');
     }
 
     public function edit(Request $request, Course $course){
@@ -50,8 +51,11 @@ class CourseController extends Controller
             ->with('success', 'Curso editado com successo!');
     }
 
-    public function destroy(){
-        dd('Curso excluido');
+    public function destroy(Course $course){
+        //Exclui regitro
+        $course->delete();
+        //Redireciona usuario
+        return redirect()->route('course.index')->with('success','Curso deletado!');
     }
 
 }

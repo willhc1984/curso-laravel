@@ -7,9 +7,21 @@
 </head>
 <body>
 
-        <a href="{{ route('course.index') }}">Listar cursos</a><br>
-        <a href="{{ route('course.create') }}">Cadastrar curso</a><br>
-        <a href="{{ route('course.edit', ['course' => $course->id]) }}">Editar curso</a><br>
+        <a href="{{ route('course.index') }}">
+            <button type="button">Listar cursos</button>
+        </a><br>
+        <a href="{{ route('course.create') }}">
+            <button type="button">Cadastrar curso</button>
+        </a><br>
+        <a href="{{ route('course.edit', ['course' => $course->id]) }}">
+            <button type="button">Editar curso</button>
+        </a><br>
+
+        <form method="POST" action="{{ route('course.destroy', ['course' => $course->id]) }}">
+            @csrf
+            @method('delete')
+            <button type="submit" onclick="return confirm('Tem certeza que desja excluir este registro?')">Apagar</button>
+        </form>
 
         @if(session('success'))
             <p style="color: #082">

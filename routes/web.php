@@ -26,4 +26,4 @@ Route::get('/create-course', [CourseController::class, 'create'])->name('course.
 Route::post('/store-course', [CourseController::class, 'store'])->name('course.store');
 Route::get('/edit-course/{course}', [CourseController::class, 'edit'])->name('course.edit');
 Route::put('/update-course/{course}', [CourseController::class, 'update'])->name('course.update');
-Route::delete('/destroy-course', [CourseController::class, 'destroy'])->name('course.destroy');
+Route::delete('/destroy-course/{course}', [CourseController::class, 'destroy'])->name('course.destroy');
