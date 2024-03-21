@@ -20,18 +20,19 @@
         @forelse($courses as $course)
             ID: {{ $course->id }} <br>
             Nome: {{ $course->name }} <br>
+            Preço: {{ 'R$ ' .number_format($course->price, 2, ',', '.') }} <br>
             Data do cadastro: {{ \Carbon\Carbon::parse($course->created_at)->tz('America/Sao_paulo')
                 ->format('d/m/Y H:i:s') }} <br>
             Editado: {{ \Carbon\Carbon::parse($course->updated_at)->tz('America/Sao_paulo')
-                ->format('d/m/Y H:i:s') }} <br>
-            <a href="{{ route('course.show', ['course' => $course->id]) }}"><button type="button">Visualizar</button></a><br>
-            <a href="{{ route('course.edit', ['course' => $course->id]) }}"><button type="button">Editar</button></a><br>
+                ->format('d/m/Y H:i:s') }} <br><br>
+            <a href="{{ route('course.show', ['course' => $course->id]) }}"><button type="button">Visualizar</button></a>
+            <a href="{{ route('course.edit', ['course' => $course->id]) }}"><button type="button">Editar</button></a>
             <form method="POST" action="{{ route('course.destroy', ['course' => $course->id]) }}">
                 @csrf
                 @method('delete')
                 <button type="submit" onclick="return confirm('Tem certeza que desja excluir este registro?')">Apagar</button>
             </form>
-            <hr>
+            <br><hr>
 
         @empty
             <p style="color: red;">Nenhum curso encontrado!</p>

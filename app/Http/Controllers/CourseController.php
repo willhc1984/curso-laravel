@@ -28,9 +28,11 @@ class CourseController extends Controller
 
     public function store(Request $request){
         //dd($request);
-       $course =  Course::create(
-            ['name' => $request->name]
-        );
+        $course =  Course::create([
+            'name' => $request->name, 
+            'price' => $request->price
+        ]);
+        
         return redirect()->route('course.show', ['course' => $course->id])
             ->with('success','Curso cadastrado com sucesso!');
     }
@@ -45,10 +47,13 @@ class CourseController extends Controller
 
     public function update(Request $request, Course $course){
         //Atualiza no banco de dados
-        $course->update(['name' => $request->name]);
+        $course->update([
+            'name' => $request->name, 
+            'price' => $request->price
+        ]);
         //Redirecionar usuario
         return redirect()->route('course.show', ['course' => $request->course])
-            ->with('success', 'Curso editado com successo!');
+            ->with('success', 'Curso atualizado com successo!');
     }
 
     public function destroy(Course $course){

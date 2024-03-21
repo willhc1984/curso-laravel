@@ -6,6 +6,7 @@
     <title>Celke</title>
 </head>
 <body>
+
     <h1>Editar curso</h1>
 
         <a href="{{ route('course.index') }}">
@@ -31,9 +32,11 @@
             <label>Nome:</label>
             <input type="text" name="name" id="name" value="{{ old('name', $course->name) }}" 
                 placeholder="Nome do curso" required><br><br>
+            <label>Preço:</label>
+            <input type="text" name="price" id="price" value="{{ old('price', $course->price) }}"
+                placeholder="Preço do curso" required><br><br>
             <button type="submit">Salvar</button>
-        </form><br>
-        
+        </form><br>        
        
 </body>
 </html>

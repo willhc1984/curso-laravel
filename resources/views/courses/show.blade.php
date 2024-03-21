@@ -33,6 +33,7 @@
 
         ID: {{ $course->id }} <br>
         Nome: {{ $course->name }} <br>
+        Preço: {{ 'R$ ' .number_format($course->price, 2, ',', '.') }} <br>
         Data do cadastro: {{ \Carbon\Carbon::parse($course->created_at)->tz('America/Sao_paulo')
                 ->format('d/m/Y H:i:s') }} <br>
         Editado: {{ \Carbon\Carbon::parse($course->updated_at)->tz('America/Sao_paulo')
