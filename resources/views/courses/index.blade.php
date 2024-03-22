@@ -27,6 +27,7 @@
                 ->format('d/m/Y H:i:s') }} <br><br>
             <a href="{{ route('course.show', ['course' => $course->id]) }}"><button type="button">Visualizar</button></a>
             <a href="{{ route('course.edit', ['course' => $course->id]) }}"><button type="button">Editar</button></a>
+            <a href="{{ route('classe.index', ['course' => $course->id]) }}"><button type="button">Visualizar aulas</button></a>
             <form method="POST" action="{{ route('course.destroy', ['course' => $course->id]) }}">
                 @csrf
                 @method('delete')

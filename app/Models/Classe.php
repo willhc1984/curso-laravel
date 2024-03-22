@@ -12,4 +12,9 @@ class Classe extends Model
     protected $table = 'classes';
 
     protected $fillable = ['name', 'descricao', 'course_id'];
+
+    // Cria relacionamento um para muitos
+    public function course(){
+        return $this->belongsTo(Course::class);
+    }
 }
