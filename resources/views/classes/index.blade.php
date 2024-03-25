@@ -20,6 +20,7 @@
         @forelse($classes as $classe)
             ID: {{ $classe->id }} <br>
             Nome: {{ $classe->name }} <br>
+            Ordem: {{ $classe->order_classe }} <br>
             Descrição: {{ $classe->descricao }} <br>
             Curso: {{ $classe->course->name }} <br>
             Data do cadastro: {{ \Carbon\Carbon::parse($classe->created_at)->tz('America/Sao_paulo')
