@@ -11,7 +11,7 @@ class Classe extends Model
 
     protected $table = 'classes';
 
-    protected $fillable = ['name', 'descricao', 'course_id'];
+    protected $fillable = ['name', 'descricao', 'course_id', 'order_classe'];
 
     // Cria relacionamento um para muitos
     public function course(){

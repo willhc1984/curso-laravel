@@ -8,7 +8,12 @@
 <body>
     <h1>Listar aulas</h1>
 
-        <a href="{{ route('course.index') }}">Cursos</a>
+        <a href="{{ route('course.index') }}">
+            <button type="button">Cursos</button>    
+        </a>
+        <a href="{{ route('classe.create', ['course' => $course->id ]) }}">
+            <button type="button">Cadastrar aula</button>    
+        </a>
 
         @if(session('success'))
             <p style="color: #082">
@@ -17,17 +22,20 @@
         @endif
 
         <h1>Aulas cadastradas:</h1>
+
         @forelse($classes as $classe)
-            ID: {{ $classe->id }} <br>
-            Nome: {{ $classe->name }} <br>
+            ID da aula: {{ $classe->id }} <br>
+            Nome da aula: {{ $classe->name }} <br>
+            Nome do curso: {{ $classe->course->name }} <br>
             Ordem: {{ $classe->order_classe }} <br>
             Descrição: {{ $classe->descricao }} <br>
-            Curso: {{ $classe->course->name }} <br>
             Data do cadastro: {{ \Carbon\Carbon::parse($classe->created_at)->tz('America/Sao_paulo')
                 ->format('d/m/Y H:i:s') }} <br>
             Editado: {{ \Carbon\Carbon::parse($classe->updated_at)->tz('America/Sao_paulo')
-                ->format('d/m/Y H:i:s') }} <br><br>
-            <br><hr>
+                ->format('d/m/Y H:i:s') }} <br>
+            <br>
+            <a href="{{ route('classe.show', ['classe' => $classe->id]) }}">Detalhes da aula</a>
+            <hr>
 
         @empty
             <p style="color: red;">Nenhum aula encontrada!</p>
