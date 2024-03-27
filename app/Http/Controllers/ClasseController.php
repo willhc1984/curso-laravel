@@ -47,4 +47,21 @@ class ClasseController extends Controller
             ->with('success', 'Aula cadastrada com sucesso!');
     }
 
+    public function edit(Classe $classe){
+        //Carregar view
+        return view('classes.edit', ['classe' => $classe]);
+    }
+
+    public function update(Request $request, Classe $classe){
+        //Editar as informações do registro
+        $classe->update([
+            'name' => $request->name,    
+            'descricao' => $request->descricao,
+        ]);
+
+        //Redireciona e envia mensagem de sucesso
+        return redirect()->route('classe.index', ['course' => $classe->course_id])
+            ->with('success', 'Aula editada com sucesso!');
+    }
+
 }

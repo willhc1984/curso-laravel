@@ -19,7 +19,7 @@
         <input type="text" name="name" id="name" placeholder="Nome da aula" 
             required value="{{ old('name') }}" /> <br><br>
         <label>Descrição:</label>
-        <textarea name="descricao" id="descricao">{{ old('descricao')}}</textarea><br><br>
+        <input type="text" name="descricao" id="descricao">{{ old('descricao')}}<br><br>
         <button type="submit">Cadastrar</button>
         
     </form>

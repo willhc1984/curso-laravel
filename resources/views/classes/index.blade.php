@@ -34,8 +34,15 @@
             Editado: {{ \Carbon\Carbon::parse($classe->updated_at)->tz('America/Sao_paulo')
                 ->format('d/m/Y H:i:s') }} <br>
             <br>
-            <a href="{{ route('classe.show', ['classe' => $classe->id]) }}">Detalhes da aula</a>
+            <a href="{{ route('classe.show', ['classe' => $classe->id]) }}">
+                <button type="button">Exibir</button>  
+            </a>
+            
+            <a href="{{ route('classe.edit', ['classe' => $classe->id]) }}">
+                <button type="button">Editar</button>    
+            </a>
             <hr>
+
 
         @empty
             <p style="color: red;">Nenhum aula encontrada!</p>
