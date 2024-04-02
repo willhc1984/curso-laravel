@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Classe;
 use App\Models\Course;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ClasseController extends Controller
 {
@@ -31,20 +33,34 @@ class ClasseController extends Controller
 
     public function store(Request $request) {
 
-        //Recuperar ultima ordem de aula no curso
-        $lastOrderClasse = Classe::where('course_id', $request->course_id)->orderByDesc('order_classe')->first();
-        
-        //Cadastrar no banco a aula
-        Classe::create([
-            'name' => $request->name,
-            'descricao' => $request->descricao,
-            'course_id' => $request->course_id,
-            'order_classe' => $lastOrderClasse->order_classe +1
-        ]);
+        //Inicio da transação
+        DB::beginTransaction();
 
-        //Redireciona usuario, envia mensagem de sucesso
-        return redirect()->route('classe.index', ['course' => $request->course_id])
-            ->with('success', 'Aula cadastrada com sucesso!');
+        try{
+             //Recuperar ultima ordem de aula no curso
+            $lastOrderClasse = Classe::where('course_id', $request->course_id)->orderByDesc('order_classe')->first();
+            
+            //Cadastrar aula no banco a aula
+            Classe::create([
+                'name' => $request->name,
+                'descricao' => $request->descricao,
+                'course_id' => $request->course_id,
+                'order_classe' => $lastOrderClasse->order_classe + 1
+            ]);
+
+            //Transação com sucesso
+            DB::commit();
+
+            //Redireciona usuario, envia mensagem de sucesso
+            return redirect()->route('classe.index', ['course' => $request->course_id])
+                ->with('success', 'Aula cadastrada com sucesso!');
+
+        }catch(Exception $e){
+            //Transação não concluida
+            DB::rollBack();
+            //Redireciona usuario, envia mensagem de erro
+             return redirect()->back()->with('error', 'Aula não cadastrada!');            
+        }       
     }
 
     public function edit(Classe $classe){

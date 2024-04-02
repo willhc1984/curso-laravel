@@ -15,7 +15,7 @@
         @endif
 
         @if(session('error'))
-            <p style="color: red">
+            <p style="color: #f00">
                 {{ session('error') }}
             </p>
         @endif

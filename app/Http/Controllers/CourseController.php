@@ -65,7 +65,7 @@ class CourseController extends Controller
             return redirect()->route('course.index')->with('success','Curso deletado!');
         }catch(Exception $e){
             //Redireciona usuario com mensagem de erro
-            return redirect()->route('course.index')->with('error','Curso não excliudo! Possui aulas cadastradas.');
+            return redirect()->route('course.index')->with('error','Curso não excluido! Possui aulas cadastradas.');
         }
     }
 

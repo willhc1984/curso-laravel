@@ -9,6 +9,12 @@
     <h1>Cadastrar aula</h1>
         <a href="{{ route('course.index') }}">Listar cursos</a><br><br><br>
 
+        @if(session('error'))
+            <p style="color: #f00">
+                {{ session('error') }}
+            </p>
+        @endif
+
     <form action="{{ route('classe.store') }}" method="POST">    
         @csrf 
         @method('POST')
