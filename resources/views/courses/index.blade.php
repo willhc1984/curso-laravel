@@ -13,6 +13,12 @@
                 {{ session('success') }}
             </p>
         @endif
+
+        @if(session('error'))
+            <p style="color: red">
+                {{ session('error') }}
+            </p>
+        @endif
         
         <a href="{{ route('course.create') }}">Cadastrar curso</a><br>
 

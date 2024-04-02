@@ -27,7 +27,14 @@
         Data do cadastro: {{ \Carbon\Carbon::parse($classe->created_at)->tz('America/Sao_paulo')
                 ->format('d/m/Y H:i:s') }} <br>
         Editado: {{ \Carbon\Carbon::parse($classe->updated_at)->tz('America/Sao_paulo')
-            ->format('d/m/Y H:i:s') }} <br>
+            ->format('d/m/Y H:i:s') }} <br><br>
+        <form method="POST" action="{{ route('classe.destroy', ['classe' => $classe->id]) }}">
+            @csrf
+            @method('delete')
+            <button type="submit" onclick="return confirm('Tem certeza que deseja apagar este registro?')">
+                Apagar
+            </button>
+        </form>
 
     </body>
 </html>

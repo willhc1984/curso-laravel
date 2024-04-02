@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use Exception;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
@@ -58,9 +59,14 @@ class CourseController extends Controller
 
     public function destroy(Course $course){
         //Exclui regitro
-        $course->delete();
-        //Redireciona usuario
-        return redirect()->route('course.index')->with('success','Curso deletado!');
+        try {       
+            $course->delete();
+            //Redireciona usuario com msg de successo
+            return redirect()->route('course.index')->with('success','Curso deletado!');
+        }catch(Exception $e){
+            //Redireciona usuario com mensagem de erro
+            return redirect()->route('course.index')->with('error','Curso não excliudo! Possui aulas cadastradas.');
+        }
     }
 
 }
