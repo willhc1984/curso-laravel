@@ -41,6 +41,14 @@
             <a href="{{ route('classe.edit', ['classe' => $classe->id]) }}">
                 <button type="button">Editar</button>    
             </a>
+
+            <form method="POST" action="{{ route('classe.destroy', ['classe' => $classe->id]) }}">
+                @csrf
+                @method('delete')
+                <button type="submit" onclick="return confirm('Tem certeza que deseja apagar este registro?')">
+                    Apagar
+                </button>
+            </form>
             <hr>
 
 

@@ -64,4 +64,13 @@ class ClasseController extends Controller
             ->with('success', 'Aula editada com sucesso!');
     }
 
+    public function destroy(Classe $classe){
+        //Excluir registro do banco de dados
+        $classe->delete();
+
+        //Redireciona o usuario
+        return redirect()->route('classe.index', ['course' => $classe->course_id])->with
+            ('success','Aula excluida com sucesso!');
+    }
+
 }
