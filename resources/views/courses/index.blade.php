@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Celke</title>
-</head>
-<body>
+@extends('layouts.admin')
+
+@section('content')
+
     <h1>Listar cursos</h1>
 
         @if(session('success'))
@@ -46,6 +42,5 @@
         @endforelse
 
         {{ $courses->links() }}
-    
-</body>
-</html>
+
+@endsection
