@@ -7,6 +7,7 @@ use App\Models\Course;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class ClasseController extends Controller
 {
@@ -48,6 +49,9 @@ class ClasseController extends Controller
                 'order_classe' => $lastOrderClasse->order_classe + 1
             ]);
 
+            //Salvando log de sucesso
+            Log::info('Aula cadastrada com sucesso!');
+
             //Transação com sucesso
             DB::commit();
 
@@ -56,10 +60,14 @@ class ClasseController extends Controller
                 ->with('success', 'Aula cadastrada com sucesso!');
 
         }catch(Exception $e){
+            //Salvar log com erro
+            Log::warning('Aula não cadastrada.', ['name' => $request->name]);
+
             //Transação não concluida
             DB::rollBack();
+            
             //Redireciona usuario, envia mensagem de erro
-             return redirect()->back()->with('error', 'Aula não cadastrada!');            
+            return redirect()->back()->with('error', 'Aula não cadastrada!');            
         }       
     }
 
@@ -75,6 +83,9 @@ class ClasseController extends Controller
             'descricao' => $request->descricao,
         ]);
 
+         //Salvando log de sucesso
+         Log::info('Aula editada com sucesso!');
+
         //Redireciona e envia mensagem de sucesso
         return redirect()->route('classe.index', ['course' => $classe->course_id])
             ->with('success', 'Aula editada com sucesso!');
@@ -83,6 +94,9 @@ class ClasseController extends Controller
     public function destroy(Classe $classe){
         //Excluir registro do banco de dados
         $classe->delete();
+
+         //Salvando log de sucesso
+         Log::info('Aula excluida com sucesso!');
 
         //Redireciona o usuario
         return redirect()->route('classe.index', ['course' => $classe->course_id])->with
