@@ -16,7 +16,7 @@
                 <span>Listar</span>
                 <span>
                     <a href="{{ route('course.create') }}" class="btn btn-success btn-sm">
-                        Cadastrar</a>
+                    <i class="fa-solid fa-square-plus"></i> Cadastrar</a>
                 </span>
             </div>
 
@@ -47,19 +47,20 @@
                             <tr>
                                 <th scope="row">{{ $course->id }}</th>
                                 <td>{{ $course->name }}</td>
-                                <td>{{ $course->price }}</td>
-                                <td>
-                                <span>
-                                    <a href="{{ route('course.create', ['course' => $course->id]) }}" class="btn btn-secondary btn-sm">
-                                        Visualizar</a>
-                                    <a href="{{ route('course.edit', ['course' => $course->id]) }}" class="btn btn-primary btn-sm">
-                                        Editar</a>
+                                <td>{{ 'R$ ' . number_format($course->price, 2, ',', '.') }}</td>
+                                <td class="d-flex justify-content-center">                                
+                                    <a href="{{ route('classe.index', ['course' => $course->id]) }}" class="btn btn-info btn-sm me-1">
+                                        <i class="fa-solid fa-list-check"></i> Aulas</a>
+                                    <a href="{{ route('course.show', ['course' => $course->id]) }}" class="btn btn-secondary btn-sm me-1">
+                                        <i class="fa-solid fa-magnifying-glass"></i> Visualizar</a>
+                                    <a href="{{ route('course.edit', ['course' => $course->id]) }}" class="btn btn-primary btn-sm me-1">
+                                        <i class="fa-solid fa-pen-to-square"></i> Editar</a>
                                         <form method="POST" action="{{ route('course.destroy', ['course' => $course->id]) }}">
                                             @csrf
                                             @method('delete')
-                                            <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm('Tem certeza que desja excluir este registro?')">Apagar</button>
-                                        </form>
-                                </span>
+                                            <button class="btn btn-danger btn-sm me-1" type="submit" onclick="return confirm('Tem certeza que desja excluir este registro?')">
+                                                <i class="fa-solid fa-trash-can"></i> Apagar</button>
+                                        </form>                               
                                 </td>
                             </tr>
                         @empty
@@ -70,37 +71,13 @@
                     </tbody>
                 </table>
 
-                {{ $courses->links() }}
+                <nav aria-label="Page navigation example">
+                    {{ $courses->links() }}
+                </nav>
 
             </div>
         </div>
 
     </div>
-
-
-
-        @forelse($courses as $course)
-            ID: {{ $course->id }} <br>
-            Nome: {{ $course->name }} <br>
-            Preço: {{ 'R$ ' .number_format($course->price, 2, ',', '.') }} <br>
-            Data do cadastro: {{ \Carbon\Carbon::parse($course->created_at)->tz('America/Sao_paulo')
-                ->format('d/m/Y H:i:s') }} <br>
-            Editado: {{ \Carbon\Carbon::parse($course->updated_at)->tz('America/Sao_paulo')
-                ->format('d/m/Y H:i:s') }} <br><br>
-            <a href="{{ route('course.show', ['course' => $course->id]) }}"><button type="button">Visualizar</button></a>
-            <a href="{{ route('course.edit', ['course' => $course->id]) }}"><button type="button">Editar</button></a>
-            <a href="{{ route('classe.index', ['course' => $course->id]) }}"><button type="button">Visualizar aulas</button></a>
-            <form method="POST" action="{{ route('course.destroy', ['course' => $course->id]) }}">
-                @csrf
-                @method('delete')
-                <button type="submit" onclick="return confirm('Tem certeza que desja excluir este registro?')">Apagar</button>
-            </form>
-            <br><hr>
-
-        @empty
-            <p style="color: red;">Nenhum curso encontrado!</p>
-        @endforelse
-
-        
 
 @endsection
