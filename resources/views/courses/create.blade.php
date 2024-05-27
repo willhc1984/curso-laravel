@@ -2,20 +2,60 @@
 
 @section('content')
 
-    <h1>Cadastrar curso</h1>
-        <a href="{{ route('course.index') }}">Listar cursos</a><br><br><br>
+    <div class="container-fluid px-4">
+        <div class="mb-1 space-between-elements">
+            <h2 class="mt-3">Curso</h2>
+            <ol class="breadcrumb mb-3 mt-3">
+                <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('course.index') }}">Cursos</a></li>
+                <li class="breadcrumb-item active">Curso</li>
+            </ol>
+        </div>  
 
-    <form action="{{ route('course.store') }}" method="POST">    
-        @csrf 
-        @method('POST')
-        
-        <label>Nome:</label>
-        <input type="text" name="name" id="name" placeholder="Nome do curso" 
-            value="{{ old('name') }}" /> <br><br>
-        <label>Preço:</label>
-        <input type="text" name="price" id="price" placeholder="Preço do curso" 
-            value="{{ old('price') }}" /> <br><br>
-        <button type="submit">Cadastrar</button>
-    </form>
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        <div class="card mb-4">
+            <div class="card-body">
+
+                @if(session('success'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                @if(session('error'))
+                    <div class="alert alert-danger" role="alert">
+                        {{ session('error') }}
+                    </div>
+                @endif
+
+                <form class="row g-3" action="{{ route('course.store') }}" method="POST">
+                    @csrf
+                    @method('POST')
+                    <div class="col-12">
+                        <label for="name" class="form-label">Nome:</label>
+                        <input type="text" class="form-control" name="name" id="name" value="{{ old('name') }}" 
+                            placeholder="Nome do curso" >
+                    </div>
+                    <div class="col-12">
+                        <label  for="price">Preço:</label>
+                        <input type="text" class="form-control" name="price" id="price" value="{{ old('price') }}"
+                            placeholder="Preço do curso" >
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary bt-sm">Salvar</button>
+                    </div>
+                </form>                
+            </div>
+        </div>
+    </div>
 
 @endsection

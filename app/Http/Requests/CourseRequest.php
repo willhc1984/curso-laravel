@@ -28,4 +28,11 @@ class CourseRequest extends FormRequest
             'price' => 'required'
         ];
     }
+
+    public function messages(): array{
+        return [
+            'name.required' => 'Nome do curso é obrigatório!',
+            'price.required' => 'Valor do preço é obrigatório!',
+        ];
+    }
 }

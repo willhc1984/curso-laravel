@@ -26,7 +26,7 @@ class CourseController extends Controller
     }
 
     public function create(){
-        return view('courses/create');
+        return view('courses.create');
     }
 
     public function store(CourseRequest $request){
@@ -48,14 +48,13 @@ class CourseController extends Controller
 
     public function edit(Request $request, Course $course){
 
-        //$course = Course::where('id', $request->course)->first();
-        //dd($course);
-
+        //Retorno para View
         return view('courses/edit', ['course' => $course]);
     }
 
-    public function update(Request $request, Course $course){
-        
+    public function update(CourseRequest $request, Course $course){
+        //Validação dos campos do formulario.
+        $request->validated();
         //Atualiza no banco de dados
         $course->update([
             'name' => $request->name, 
