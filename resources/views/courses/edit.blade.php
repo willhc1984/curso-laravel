@@ -2,35 +2,69 @@
 
 @section('content')
 
-    <h1>Editar curso</h1>
+<div class="container-fluid px-4">
+        <div class="mb-1 space-between-elements">
+            <h2 class="mt-3">Curso</h2>
+            <ol class="breadcrumb mb-3 mt-3">
+                <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('course.index') }}">Cursos</a></li>
+                <li class="breadcrumb-item active">Curso</li>
+            </ol>
+        </div>
 
-        <a href="{{ route('course.index') }}">
-            <button type="button">Listar cursos</button>
-        </a><br>
-        <a href="{{ route('course.create') }}">
-            <button type="button">Cadastrar curso</button>
-        </a><br>
-        <a href="{{ route('course.edit', ['course' => $course->id]) }}">
-            <button type="button">Editar curso</button>
-        </a><br>
+        <div class="card mb-4">
+            <div class="card-header space-between-elements">
+                <span>Editar</span>
+                <span class="d-flex">
+                    <a href="{{ route('course.index') }}" class="btn btn-info btn-sm me-1"><i
+                            class="fa-solid fa-list"></i> Listar</a>
 
-        <form method="POST" action="{{ route('course.destroy', ['course' => $course->id]) }}">
-            @csrf
-            @method('delete')
-            <button type="submit" onclick="return confirm('Tem certeza que deseja excluir este registro?')">Apagar</button>
-        </form><br>
+                    <a href="{{ route('course.show', ['course' => $course->id]) }}" class="btn btn-secondary btn-sm me-1"><i
+                            class="fa-solid fa-magnifying-glass"></i>Visualizar
+                    </a>
 
-        <form action="{{ route('course.update', ['course' => $course->id]) }}" method="POST">
-            @csrf
-            @method('PUT')
+                    <form method="POST" action="{{ route('course.destroy', ['course' => $course->id]) }}">
+                        @csrf
+                        @method('delete')
+                        <button type="submit" class="btn btn-danger btn-sm me-1"
+                            onclick="return confirm('Tem certeza que deseja apagar este registro?')"><i
+                                class="fa-regular fa-trash-can"></i> Apagar</button>
+                    </form>
+                </span>
+            </div>
+            <div class="card-body">
 
-            <label>Nome:</label>
-            <input type="text" name="name" id="name" value="{{ old('name', $course->name) }}" 
-                placeholder="Nome do curso" required><br><br>
-            <label>Preço:</label>
-            <input type="text" name="price" id="price" value="{{ old('price', $course->price) }}"
-                placeholder="Preço do curso" required><br><br>
-            <button type="submit">Salvar</button>
-        </form><br>        
+                @if(session('success'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                @if(session('error'))
+                    <div class="alert alert-danger" role="alert">
+                        {{ session('error') }}
+                    </div>
+                @endif
+
+                <form class="row g-3" action="{{ route('course.update', ['course' => $course->id]) }}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <div class="col-12">
+                        <label for="name" class="form-label">Nome:</label>
+                        <input type="text" class="form-control" name="name" id="name" value="{{ old('name', $course->name) }}" 
+                            placeholder="Nome do curso" >
+                    </div>
+                    <div class="col-12">
+                        <label  for="price">Preço:</label>
+                        <input type="text" class="form-control" name="price" id="price" value="{{ old('price', $course->price) }}"
+                            placeholder="Preço do curso" >
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-warning bt-sm">Salvar</button>
+                    </div>
+                </form>                
+            </div>
+        </div>
+    </div>       
        
 @endsection

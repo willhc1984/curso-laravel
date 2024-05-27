@@ -22,7 +22,8 @@ class ClasseController extends Controller
     }
 
     //Detalhes da aula
-    public function show(Request $request, Classe $classe){
+    public function show(Classe $classe){
+
         return view('classes.show', ['classe'=> $classe]);
     }
 

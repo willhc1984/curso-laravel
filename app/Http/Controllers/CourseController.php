@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CourseRequest;
 use App\Models\Course;
 use Exception;
 use Illuminate\Http\Request;
@@ -28,7 +29,9 @@ class CourseController extends Controller
         return view('courses/create');
     }
 
-    public function store(Request $request){
+    public function store(CourseRequest $request){
+        //Validação dos campos do formulario.
+        $request->validated();
         //dd($request);
         $course =  Course::create([
             'name' => $request->name, 
@@ -52,6 +55,7 @@ class CourseController extends Controller
     }
 
     public function update(Request $request, Course $course){
+        
         //Atualiza no banco de dados
         $course->update([
             'name' => $request->name, 

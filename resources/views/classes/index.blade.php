@@ -1,54 +1,84 @@
 @extends('layouts.admin')
 @section('content')
 
-    <h1>Listar aulas</h1>
+<div class="container-fluid px-4">
+        <div class="mb1 space-between-elements">
+            <h2 class="mt-3">Dashboard</h2>
+            <ol class="breadcrumb mb-3 mt-3">
+                <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                <li class="breadcrumb-item active">Cursos</li>
+            </ol>            
+        </div>
 
-        <a href="{{ route('course.index') }}">
-            <button type="button">Cursos</button>    
-        </a>
-        <a href="{{ route('classe.create', ['course' => $course->id ]) }}">
-            <button type="button">Cadastrar aula</button>    
-        </a>
+        <div class="card mb-4">
+            <div class="card-header space-between-elements">
+                <span>Listar</span>
+                <span>
+                    <a href="{{ route('classe.create',  ['course' => $course->id]) }}" class="btn btn-success btn-sm">
+                    <i class="fa-solid fa-square-plus"></i> Cadastrar</a>
+                </span>
+            </div>
 
-        @if(session('success'))
-            <p style="color: #082">
-                {{ session('success') }}
-            </p>
-        @endif
+            <div class="card-body">
+                @if(session('success'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('success') }}
+                    </div>
+                @endif
 
-        <h1>Aulas cadastradas:</h1>
+                @if(session('error'))
+                    <div class="alert alert-danger" role="alert">
+                        {{ session('error') }}
+                    </div>
+                @endif
 
-        @forelse($classes as $classe)
-            ID da aula: {{ $classe->id }} <br>
-            Nome da aula: {{ $classe->name }} <br>
-            Nome do curso: {{ $classe->course->name }} <br>
-            Ordem: {{ $classe->order_classe }} <br>
-            Descrição: {{ $classe->descricao }} <br>
-            Data do cadastro: {{ \Carbon\Carbon::parse($classe->created_at)->tz('America/Sao_paulo')
-                ->format('d/m/Y H:i:s') }} <br>
-            Editado: {{ \Carbon\Carbon::parse($classe->updated_at)->tz('America/Sao_paulo')
-                ->format('d/m/Y H:i:s') }} <br>
-            <br>
-            <a href="{{ route('classe.show', ['classe' => $classe->id]) }}">
-                <button type="button">Exibir</button>  
-            </a>
-            
-            <a href="{{ route('classe.edit', ['classe' => $classe->id]) }}">
-                <button type="button">Editar</button>    
-            </a>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Descrição</th>
+                            <th scope="col">Nome do curso</th>
+                            <th scope="col">Ordem</th>
+                            <th scope="col">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($classes as $classe)
+                            <tr>
+                                <th scope="row">{{ $classe->id }}</th>
+                                <td>{{ $classe->name }}</td>
+                                <td>{{ $classe->descricao }}</td>
+                                <td>{{ $classe->course->name }}</td>
+                                <td>{{ $classe->order_classe }}</td>
+                                <td class="d-flex justify-content-center">                                
+                                    <a href="{{ route('classe.show', ['classe' => $classe->id]) }}" class="btn btn-secondary btn-sm me-1">
+                                        <i class="fa-solid fa-magnifying-glass"></i> Visualizar</a>
+                                    <a href="{{ route('classe.edit', ['classe' => $classe->id]) }}" class="btn btn-primary btn-sm me-1">
+                                        <i class="fa-solid fa-pen-to-square"></i> Editar</a>
+                                        <form method="POST" action="{{ route('classe.destroy', ['classe' => $classe->id]) }}">
+                                            @csrf
+                                            @method('delete')
+                                            <button class="btn btn-danger btn-sm me-1" type="submit" onclick="return confirm('Tem certeza que desja excluir este registro?')">
+                                                <i class="fa-solid fa-trash-can"></i> Apagar</button>
+                                        </form>                               
+                                </td>
+                            </tr>
+                        @empty
+                            <div class="alert alert-danger" role="alert">
+                                Nenhuma aula encontrada!
+                            </div>
+                        @endforelse
+                    </tbody>
+                </table>
 
-            <form method="POST" action="{{ route('classe.destroy', ['classe' => $classe->id]) }}">
-                @csrf
-                @method('delete')
-                <button type="submit" onclick="return confirm('Tem certeza que deseja apagar este registro?')">
-                    Apagar
-                </button>
-            </form>
-            <hr>
+                <nav aria-label="Page navigation example">
+                    
+                </nav>
 
+            </div>
+        </div>
 
-        @empty
-            <p style="color: red;">Nenhum aula encontrada!</p>
-        @endforelse
+    </div>
     
 @endsection
