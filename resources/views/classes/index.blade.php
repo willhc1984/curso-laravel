@@ -37,9 +37,9 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Nome</th>
-                            <th scope="col">Descrição</th>
-                            <th scope="col">Nome do curso</th>
-                            <th scope="col">Ordem</th>
+                            <th scope="col" class="d-none d-md-table-cell">Descrição</th>
+                            <th scope="col">Curso</th>
+                            <th scope="col"  class="d-none d-md-table-cell">Ordem</th>
                             <th scope="col">Ações</th>
                         </tr>
                     </thead>
@@ -48,18 +48,18 @@
                             <tr>
                                 <th scope="row">{{ $classe->id }}</th>
                                 <td>{{ $classe->name }}</td>
-                                <td>{{ $classe->descricao }}</td>
+                                <td  class="d-none d-md-table-cell">{{ $classe->descricao }}</td>
                                 <td>{{ $classe->course->name }}</td>
-                                <td>{{ $classe->order_classe }}</td>
+                                <td  class="d-none d-md-table-cell">{{ $classe->order_classe }}</td>
                                 <td class="d-flex justify-content-center">                                
-                                    <a href="{{ route('classe.show', ['classe' => $classe->id]) }}" class="btn btn-secondary btn-sm me-1">
+                                    <a href="{{ route('classe.show', ['classe' => $classe->id]) }}" class="btn btn-secondary btn-sm me-1 mb-1">
                                         <i class="fa-solid fa-magnifying-glass"></i> Visualizar</a>
-                                    <a href="{{ route('classe.edit', ['classe' => $classe->id]) }}" class="btn btn-primary btn-sm me-1">
+                                    <a href="{{ route('classe.edit', ['classe' => $classe->id]) }}" class="btn btn-primary btn-sm me-1 mb-1">
                                         <i class="fa-solid fa-pen-to-square"></i> Editar</a>
                                         <form method="POST" action="{{ route('classe.destroy', ['classe' => $classe->id]) }}">
                                             @csrf
                                             @method('delete')
-                                            <button class="btn btn-danger btn-sm me-1" type="submit" onclick="return confirm('Tem certeza que desja excluir este registro?')">
+                                            <button class="btn btn-danger btn-sm me-1 mb-1" type="submit" onclick="return confirm('Tem certeza que desja excluir este registro?')">
                                                 <i class="fa-solid fa-trash-can"></i> Apagar</button>
                                         </form>                               
                                 </td>

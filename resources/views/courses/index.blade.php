@@ -38,7 +38,7 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Nome</th>
-                            <th scope="col">Preço</th>
+                            <th scope="col" class="d-none d-md-table-cell">Preço</th>
                             <th scope="col">Ações</th>
                         </tr>
                     </thead>
@@ -47,18 +47,18 @@
                             <tr>
                                 <th scope="row">{{ $course->id }}</th>
                                 <td>{{ $course->name }}</td>
-                                <td>{{ 'R$ ' . number_format($course->price, 2, ',', '.') }}</td>
-                                <td class="d-flex justify-content-center">                                
-                                    <a href="{{ route('classe.index', ['course' => $course->id]) }}" class="btn btn-info btn-sm me-1">
+                                <td class="d-none d-md-table-cell">{{ 'R$ ' . number_format($course->price, 2, ',', '.') }}</td>
+                                <td class="d-md-flex justify-content-center">                                
+                                    <a href="{{ route('classe.index', ['course' => $course->id]) }}" class="btn btn-info btn-sm me-1 mb-1">
                                         <i class="fa-solid fa-list-check"></i> Aulas</a>
-                                    <a href="{{ route('course.show', ['course' => $course->id]) }}" class="btn btn-secondary btn-sm me-1">
+                                    <a href="{{ route('course.show', ['course' => $course->id]) }}" class="btn btn-secondary btn-sm me-1 mb-1">
                                         <i class="fa-solid fa-magnifying-glass"></i> Visualizar</a>
-                                    <a href="{{ route('course.edit', ['course' => $course->id]) }}" class="btn btn-primary btn-sm me-1">
+                                    <a href="{{ route('course.edit', ['course' => $course->id]) }}" class="btn btn-primary btn-sm me-1 mb-1">
                                         <i class="fa-solid fa-pen-to-square"></i> Editar</a>
                                         <form method="POST" action="{{ route('course.destroy', ['course' => $course->id]) }}">
                                             @csrf
                                             @method('delete')
-                                            <button class="btn btn-danger btn-sm me-1" type="submit" onclick="return confirm('Tem certeza que desja excluir este registro?')">
+                                            <button class="btn btn-danger btn-sm me-1 mb-1" type="submit" onclick="return confirm('Tem certeza que desja excluir este registro?')">
                                                 <i class="fa-solid fa-trash-can"></i> Apagar</button>
                                         </form>                               
                                 </td>
