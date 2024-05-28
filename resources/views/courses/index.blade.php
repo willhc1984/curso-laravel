@@ -71,9 +71,7 @@
                     </tbody>
                 </table>
 
-                <nav aria-label="Page navigation example">
-                    {{ $courses->links() }}
-                </nav>
+                {{ $courses->links() }}         
 
             </div>
         </div>

@@ -15,7 +15,8 @@
             <div class="card-header space-between-elements">
                 <span>Listar</span>
                 <span class="d-flex">
-
+                    <a href="{{ route('course.create') }}" class="btn btn-success btn-sm me-1">
+                        <i class="fa-solid fa-square-plus"></i> Cadastrar</a>
                     <a href="{{ route('classe.index', ['course' => $course->id]) }}" class="btn btn-info btn-sm me-1"><i
                             class="fa-solid fa-list"></i> Aulas</a>
 

@@ -12,19 +12,26 @@
             </ol>
         </div>  
 
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
         <div class="card mb-4">
-            <div class="card-body">
+            <div class="card-header space-between-elements">
+                <span>Cadastrar</span>
+                <span>
+                    <a href="{{ route('course.index') }}" class="btn btn-success btn-sm">
+                    <i class="fa-solid fa-square-plus"></i> Listar</a>
+                </span>
+            </div>
 
+            <div class="card-body">
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif            
+        
                 @if(session('success'))
                     <div class="alert alert-success" role="alert">
                         {{ session('success') }}
@@ -55,7 +62,7 @@
                     </div>
                 </form>                
             </div>
-        </div>
+        </div>        
     </div>
 
 @endsection
