@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CourseRequest extends FormRequest
+class ClasseRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,18 +21,18 @@ class CourseRequest extends FormRequest
      *
      * @return array
      */
-    public function rules(): array
+    public function rules():array
     {
         return [
             'name' => 'required',
-            'price' => 'required'
+            'descricao' => 'required'
         ];
     }
 
     public function messages(): array{
         return [
-            'name.required' => 'Nome do curso é obrigatório!',
-            'price.required' => 'Valor do preço é obrigatório!'
+            'name.required' => 'Nome da aula é obrigatório!',
+            'descricao.required' => 'Descrição da aula é obrigatória!'
         ];
     }
 }

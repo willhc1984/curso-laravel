@@ -22,7 +22,7 @@
             </div>
         @endif
         
-        <div class="card mb-4">
+        <div class="card mb-4 border-light shadow">
             <div class="card-header space-between-elements">
                 <span>Editar</span>
                 <span class="d-flex">
@@ -42,8 +42,8 @@
                     </form>
                 </span>
             </div>
-            <div class="card-body">
 
+            <div class="card-body">
                 @if(session('success'))
                     <div class="alert alert-success" role="alert">
                         {{ session('success') }}

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ClasseRequest;
 use App\Models\Classe;
 use App\Models\Course;
 use Exception;
@@ -18,22 +19,24 @@ class ClasseController extends Controller
             $course->id)->orderBy('order_classe')->get();
 
         // Carrega view
-        return view('classes.index', ['classes' => $classes, 'course' => $course]);
+        return view('classes.index', ['menu' => 'courses', 'classes' => $classes, 'course' => $course]);
     }
 
     //Detalhes da aula
     public function show(Classe $classe){
 
-        return view('classes.show', ['classe'=> $classe]);
+        return view('classes.show', ['menu' => 'courses', 'classe'=> $classe]);
     }
 
     //Carregar formulario cadastrar aula
     public function create(Course $course){
         //Carregar view
-        return view('classes.create', ['course' => $course]);
+        return view('classes.create', ['menu' => 'courses', 'course' => $course]);
     }
 
-    public function store(Request $request) {
+    public function store(ClasseRequest $request) {
+        //Validação dos campos do formulario
+        $request->validated();
 
         //Inicio da transação
         DB::beginTransaction();
@@ -74,10 +77,13 @@ class ClasseController extends Controller
 
     public function edit(Classe $classe){
         //Carregar view
-        return view('classes.edit', ['classe' => $classe]);
+        return view('classes.edit', ['menu' => 'courses', 'classe' => $classe]);
     }
 
-    public function update(Request $request, Classe $classe){
+    public function update(ClasseRequest $request, Classe $classe){
+        //Valida formulario
+        $request->validated();
+
         //Editar as informações do registro
         $classe->update([
             'name' => $request->name,    

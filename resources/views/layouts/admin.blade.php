@@ -14,7 +14,7 @@
 
 <body class="sb-nav-fixed">
 
-    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark" style="background-color: black;">
         <!-- Navbar Brand-->
         <a class="navbar-brand ps-3" href="index.html">Curso Celke Laravel 10</a>
         <!-- Sidebar Toggle-->
@@ -38,14 +38,16 @@
 
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
-            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+            <nav class="sb-sidenav accordion sb-sidenav-five" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
-                        <a class="nav-link" href="#">
+                        <a @class(['nav-link', 'active' => isset($menu) && $menu == 'dashboard']) 
+                                class="nav-link" href="#">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Dashboard
                         </a>
-                        <a class="nav-link" href="{{ route('course.index') }}">
+                        <a @class(['nav-link', 'active' => isset($menu) && $menu == 'courses']) 
+                                class="nav-link" href="{{ route('course.index') }}">
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-chalkboard-user"></i></i></div>
                             Cursos
                         </a>

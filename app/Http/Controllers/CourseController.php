@@ -13,7 +13,7 @@ class CourseController extends Controller
    public function index(){
         $cursos = Course::orderByDesc('created_at')->paginate(5);
         //dd($cursos);
-        return view('courses/index', ['courses' => $cursos]);
+        return view('courses.index', ['menu' => 'courses', 'courses' => $cursos]);
     }
 
     public function show(Request $request, Course $course){
@@ -22,11 +22,11 @@ class CourseController extends Controller
         //$course = Course::where('id', $request->course)->first();
         
         // Carregar view
-        return view('courses/show', ['course' => $course]);
+        return view('courses/show', ['menu' => 'courses', 'course' => $course]);
     }
 
     public function create(){
-        return view('courses.create');
+        return view('courses.create', ['menu' => 'courses']);
     }
 
     public function store(CourseRequest $request){
@@ -41,7 +41,7 @@ class CourseController extends Controller
         //Salvando log
         Log::info('Curso gravado com sucesso!', [$course]);
         
-        return redirect()->route('course.show', ['course' => $course->id])
+        return redirect()->route('course.show', ['menu' => 'courses', 'course' => $course->id])
             ->with('success','Curso cadastrado com sucesso!');
         
     }
@@ -49,7 +49,7 @@ class CourseController extends Controller
     public function edit(Request $request, Course $course){
 
         //Retorno para View
-        return view('courses/edit', ['course' => $course]);
+        return view('courses/edit', ['menu' => 'courses', 'course' => $course]);
     }
 
     public function update(CourseRequest $request, Course $course){
@@ -65,7 +65,7 @@ class CourseController extends Controller
         Log::info('Curso editado com sucesso!');
 
         //Redirecionar usuario
-        return redirect()->route('course.show', ['course' => $request->course])
+        return redirect()->route('course.show', ['menu' => 'courses', 'course' => $request->course])
             ->with('success', 'Curso atualizado com successo!');
     }
 

@@ -2,28 +2,68 @@
 
 @section('content')
 
-    <h1>Cadastrar aula</h1>
-        <a href="{{ route('course.index') }}">Listar cursos</a><br><br><br>
+<div class="container-fluid px-4">
+        <div class="mb-1 space-between-elements">
+            <h2 class="mt-3">Aula</h2>
+            <ol class="breadcrumb mb-3 mt-3">
+                <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('course.index') }}">Cursos</a></li>
+                <li class="breadcrumb-item active">Aula</li>
+            </ol>
+        </div>  
 
-        @if(session('error'))
-            <p style="color: #f00">
-                {{ session('error') }}
-            </p>
-        @endif
+        <div class="card mb-4 border-light shadow">
+            <div class="card-header space-between-elements">
+                <span>Cadastrar</span>
+                <span>
+                    <a href="{{ route('course.index') }}" class="btn btn-success btn-sm">
+                    <i class="fa-solid fa-square-plus"></i> Listar</a>
+                </span>
+            </div>
 
-    <form action="{{ route('classe.store') }}" method="POST">    
-        @csrf 
-        @method('POST')
-
-        <input type="hidden" name="course_id" id="course_id" value="{{ $course->id }}">
+            <div class="card-body">
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif            
         
-        <label>Nome da aula:</label>
-        <input type="text" name="name" id="name" placeholder="Nome da aula" 
-            required value="{{ old('name') }}" /> <br><br>
-        <label>Descrição:</label>
-        <input type="text" name="descricao" id="descricao">{{ old('descricao')}}<br><br>
-        <button type="submit">Cadastrar</button>
-        
-    </form>
+                @if(session('success'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                @if(session('error'))
+                    <div class="alert alert-danger" role="alert">
+                        {{ session('error') }}
+                    </div>
+                @endif
+
+                <form class="row g-3" action="{{ route('classe.store') }}" method="POST">
+                    @csrf
+                    @method('POST')
+                    <input type="hidden" name="course_id" id="course_id" value="{{ $course->id }}">
+                    <div class="col-12">
+                        <label for="name" class="form-label">Nome:</label>
+                        <input type="text" class="form-control" name="name" id="name" value="{{ old('name') }}" 
+                            placeholder="Nome da aula" >
+                    </div>
+                    <div class="col-12">
+                        <label  for="descricao">Descrição:</label>
+                        <input type="text" class="form-control" name="descricao" id="descricao" value="{{ old('descricao') }}"
+                            placeholder="Descrição da aula do curso" >
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary bt-sm">Salvar</button>
+                    </div>
+                </form>                
+            </div>
+        </div>        
+    </div>
 
 @endsection

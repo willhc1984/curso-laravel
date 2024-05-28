@@ -11,7 +11,7 @@
             </ol>
         </div>
 
-        <div class="card mb-4">
+        <div class="card mb-4 border-light shadow">
             <div class="card-header space-between-elements">
                 <span>Listar</span>
                 <span class="d-flex">
@@ -33,6 +33,15 @@
                 </span>
             </div>
             <div class="card-body">
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif  
 
                 @if(session('success'))
                     <div class="alert alert-success" role="alert">
@@ -46,17 +55,22 @@
                     </div>
                 @endif
 
-                <form action="{{ route('classe.update', ['classe' => $classe->id]) }}" method="POST">    
+                <form class="row g-3" action="{{ route('classe.update', ['classe' => $classe->id]) }}" method="POST">    
                     @csrf 
                     @method('PUT')
-                    
-                    <label>Nome da aula:</label>
-                    <input type="text" name="name" id="name" placeholder="Nome da aula" 
-                        required value="{{ old('name', $classe->name) }}" /> <br><br>
-                    <label>Descrição:</label>
-                    <input type="text" name="descricao" id="descricao" 
-                        required value="{{ old('descricao', $classe->descricao) }}"><br><br>
-                    <button type="submit">Salvar</button>
+                    <div class="col-12">
+                        <label for="name" class="form-label">Nome da aula:</label>
+                        <input type="text" class="form-control" name="name" id="name" placeholder="Nome da aula" 
+                            value="{{ old('name', $classe->name) }}" />
+                    </div>
+                    <div class="col-12">
+                        <label for="descricao" class="form-label">Descrição:</label>
+                        <input type="text" class="form-control" name="descricao" id="descricao" 
+                            value="{{ old('descricao', $classe->descricao) }}">
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary bt-sm">Salvar</button>
+                    </div>
                     
                 </form>  
                 
