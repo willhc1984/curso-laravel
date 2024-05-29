@@ -14,7 +14,7 @@ class ClasseController extends Controller
 {
     //Listar aulas
     public function index(Course $course){
-
+        //Busca aulas no banco de dados
         $classes = Classe::with('course')->where('course_id', 
             $course->id)->orderBy('order_classe')->get();
 
@@ -24,7 +24,6 @@ class ClasseController extends Controller
 
     //Detalhes da aula
     public function show(Classe $classe){
-
         return view('classes.show', ['menu' => 'courses', 'classe'=> $classe]);
     }
 
@@ -65,7 +64,7 @@ class ClasseController extends Controller
 
         }catch(Exception $e){
             //Salvar log com erro
-            Log::warning('Aula não cadastrada.', ['name' => $request->name]);
+            Log::warning('Aula não cadastrada.', ['erro' => $e->getMessage()]);
 
             //Transação não concluida
             DB::rollBack();
@@ -84,30 +83,59 @@ class ClasseController extends Controller
         //Valida formulario
         $request->validated();
 
-        //Editar as informações do registro
-        $classe->update([
-            'name' => $request->name,    
-            'descricao' => $request->descricao,
-        ]);
+        //Inicio da transação
+        DB::beginTransaction();
 
-         //Salvando log de sucesso
-         Log::info('Aula editada com sucesso!');
+        try{
+            //Editar as informações do registro
+            $classe->update([
+                'name' => $request->name,    
+                'descricao' => $request->descricao,
+            ]);
 
-        //Redireciona e envia mensagem de sucesso
-        return redirect()->route('classe.index', ['course' => $classe->course_id])
-            ->with('success', 'Aula editada com sucesso!');
+            //Transação com sucesso
+            DB::commit();
+
+            //Salvando log de sucesso
+            Log::info('Aula atualizada com sucesso!');
+
+            //Redireciona e envia mensagem de sucesso
+            return redirect()->route('classe.index', ['course' => $classe->course_id])
+                ->with('success', 'Aula atualizada com sucesso!');
+            }
+        catch(Exception $e){
+             //Salvar log com erro
+             Log::warning('Aula não atualizada.', ['erro' => $e->getMessage()]);
+
+             //Transação não concluida
+             DB::rollBack();
+             
+             //Redireciona usuario, envia mensagem de erro
+             return redirect()->back()->with('error', 'Aula não atualizada!');
+        }
     }
 
     public function destroy(Classe $classe){
-        //Excluir registro do banco de dados
-        $classe->delete();
 
-         //Salvando log de sucesso
-         Log::info('Aula excluida com sucesso!');
+        try{
+            //Excluir registro do banco de dados
+            $classe->delete();
 
-        //Redireciona o usuario
-        return redirect()->route('classe.index', ['course' => $classe->course_id])->with
-            ('success','Aula excluida com sucesso!');
+            //Salvando log de sucesso
+            Log::info('Aula excluida com sucesso!');
+
+            //Redireciona o usuario
+            return redirect()->route('classe.index', ['course' => $classe->course_id])->with
+                ('success','Aula excluida com sucesso!');
+                
+        }catch(Exception $e){
+            //Salvar log com erro
+            Log::warning('Aula não excluida.', ['erro' => $e->getMessage()]);
+            
+            //Redireciona usuario, envia mensagem de erro
+            return redirect()->back()->with('error', 'Aula não excluida!');
+        }
+       
     }
 
 }

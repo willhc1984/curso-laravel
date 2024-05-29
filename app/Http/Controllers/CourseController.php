@@ -58,7 +58,7 @@ class CourseController extends Controller
             DB::rollBack();
 
             //Salvando log
-            Log::info('Curso não gravado!', ['error' => $e->getMessage()]);
+            Log::warning('Curso não gravado!', ['error' => $e->getMessage()]);
             
             return back()->withInput()->with('error','Curso não cadastrado!');
         }        
@@ -98,7 +98,7 @@ class CourseController extends Controller
             DB::rollBack();
 
             //Salvando log
-            Log::info('Curso não atualizado!', ['error' => $e->getMessage()]);
+            Log::warning('Curso não atualizado!', ['error' => $e->getMessage()]);
              
             return back()->withInput()->with('error','Curso não atualizado!');
         }
@@ -109,12 +109,12 @@ class CourseController extends Controller
         try {       
             $course->delete();
             //Salvando log de sucesso
-            Log::info('Curso excluida com sucesso!');
+            Log::info('Curso excluido com sucesso!');
             //Redireciona usuario com msg de successo
             return redirect()->route('course.index')->with('success','Curso deletado!');
         }catch(Exception $e){
             //Salvando log de erro
-            Log::info('Aula nao pode ser excluida!');
+            Log::warning('Curso nao pode ser excluido!');
             //Redireciona usuario com mensagem de erro
             return redirect()->route('course.index')->with('error','Curso não excluido! Possui aulas cadastradas.');
         }
