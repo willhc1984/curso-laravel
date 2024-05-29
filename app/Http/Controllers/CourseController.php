@@ -6,6 +6,7 @@ use App\Http\Requests\CourseRequest;
 use App\Models\Course;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class CourseController extends Controller
@@ -32,22 +33,38 @@ class CourseController extends Controller
     public function store(CourseRequest $request){
         //Validação dos campos do formulario.
         $request->validated();
-        //Cadastrar no banco de dados
-        $course =  Course::create([
-            'name' => $request->name, 
-            'price' => str_replace(',', '.', str_replace('.', '', $request->price))
-        ]);
 
-        //Salvando log
-        Log::info('Curso gravado com sucesso!', [$course]);
-        
-        return redirect()->route('course.show', ['menu' => 'courses', 'course' => $course->id])
-            ->with('success','Curso cadastrado com sucesso!');
-        
+        //Marca ponto inicial da transação
+        DB::beginTransaction();
+
+        try{
+            //Cadastrar no banco de dados
+            $course =  Course::create([
+                'name' => $request->name, 
+                'price' => str_replace(',', '.', str_replace('.', '', $request->price))
+            ]);
+
+            //Salvando log
+            Log::info('Curso gravado com sucesso!', [$course]);
+
+            //Operação concluida com exito
+            DB::commit();
+            
+            return redirect()->route('course.show', ['menu' => 'courses', 'course' => $course->id])
+                ->with('success','Curso cadastrado com sucesso!');
+
+        } catch (Exception $e){
+            //Operação não concluida
+            DB::rollBack();
+
+            //Salvando log
+            Log::info('Curso não gravado!', ['error' => $e->getMessage()]);
+            
+            return back()->withInput()->with('error','Curso não cadastrado!');
+        }        
     }
 
     public function edit(Request $request, Course $course){
-
         //Retorno para View
         return view('courses/edit', ['menu' => 'courses', 'course' => $course]);
     }
@@ -55,18 +72,36 @@ class CourseController extends Controller
     public function update(CourseRequest $request, Course $course){
         //Validação dos campos do formulario.
         $request->validated();
-        //Atualiza no banco de dados
-        $course->update([
-            'name' => $request->name, 
-            'price' => str_replace(',', '.', str_replace('.', '', $request->price))
-        ]);
 
-        //Salvando log de sucesso
-        Log::info('Curso editado com sucesso!');
+        //Marca ponto inicial da transação
+        DB::beginTransaction();
 
-        //Redirecionar usuario
-        return redirect()->route('course.show', ['menu' => 'courses', 'course' => $request->course])
-            ->with('success', 'Curso atualizado com successo!');
+        try{
+            //Atualiza no banco de dados
+            $course->update([
+                'name' => $request->name, 
+                'price' => str_replace(',', '.', str_replace('.', '', $request->price))
+            ]);
+
+            //Operação concluida com exito
+            DB::commit();
+
+            //Salvando log de sucesso
+            Log::info('Curso editado com sucesso!');
+
+            //Redirecionar usuario
+            return redirect()->route('course.show', ['menu' => 'courses', 'course' => $request->course])
+                ->with('success', 'Curso atualizado com successo!');
+
+        }catch(Exception $e){
+            //Operação não concluida
+            DB::rollBack();
+
+            //Salvando log
+            Log::info('Curso não atualizado!', ['error' => $e->getMessage()]);
+             
+            return back()->withInput()->with('error','Curso não atualizado!');
+        }
     }
 
     public function destroy(Course $course){
