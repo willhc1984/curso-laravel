@@ -37,7 +37,7 @@ class ClasseSeeder extends Seeder
                 'name' => 'Aula 3',
                 'descricao' => 'Introdução 3',
                 'order_classe' => 3,
-                'course_id' => 1
+                'course_id' => 2
             ]);
         }
         

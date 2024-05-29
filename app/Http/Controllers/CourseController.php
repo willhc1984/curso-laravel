@@ -32,10 +32,10 @@ class CourseController extends Controller
     public function store(CourseRequest $request){
         //Validação dos campos do formulario.
         $request->validated();
-        //dd($request);
+        //Cadastrar no banco de dados
         $course =  Course::create([
             'name' => $request->name, 
-            'price' => $request->price
+            'price' => str_replace(',', '.', str_replace('.', '', $request->price))
         ]);
 
         //Salvando log
@@ -58,7 +58,7 @@ class CourseController extends Controller
         //Atualiza no banco de dados
         $course->update([
             'name' => $request->name, 
-            'price' => $request->price
+            'price' => str_replace(',', '.', str_replace('.', '', $request->price))
         ]);
 
         //Salvando log de sucesso
