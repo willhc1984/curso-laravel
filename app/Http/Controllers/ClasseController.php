@@ -49,7 +49,7 @@ class ClasseController extends Controller
                 'name' => $request->name,
                 'descricao' => $request->descricao,
                 'course_id' => $request->course_id,
-                'order_classe' => $lastOrderClasse->order_classe + 1
+                'order_classe' => $lastOrderClasse != null ? $lastOrderClasse->order_classe + 1 : 1
             ]);
 
             //Salvando log de sucesso
