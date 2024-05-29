@@ -43,7 +43,7 @@ class ClasseController extends Controller
         try{
              //Recuperar ultima ordem de aula no curso
             $lastOrderClasse = Classe::where('course_id', $request->course_id)->orderByDesc('order_classe')->first();
-            
+
             //Cadastrar aula no banco a aula
             Classe::create([
                 'name' => $request->name,
@@ -127,7 +127,7 @@ class ClasseController extends Controller
             //Redireciona o usuario
             return redirect()->route('classe.index', ['course' => $classe->course_id])->with
                 ('success','Aula excluida com sucesso!');
-                
+
         }catch(Exception $e){
             //Salvar log com erro
             Log::warning('Aula não excluida.', ['erro' => $e->getMessage()]);

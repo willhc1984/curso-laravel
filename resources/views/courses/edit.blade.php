@@ -11,16 +11,6 @@
                 <li class="breadcrumb-item active">Curso</li>
             </ol>
         </div>
-
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
         
         <div class="card mb-4 border-light shadow">
             <div class="card-header space-between-elements">
@@ -44,17 +34,8 @@
             </div>
 
             <div class="card-body">
-                @if(session('success'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('success') }}
-                    </div>
-                @endif
-
-                @if(session('error'))
-                    <div class="alert alert-danger" role="alert">
-                        {{ session('error') }}
-                    </div>
-                @endif
+                
+                <x-alert /> 
 
                 <form class="row g-3" action="{{ route('course.update', ['course' => $course->id]) }}" method="POST">
                     @csrf

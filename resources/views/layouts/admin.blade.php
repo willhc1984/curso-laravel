@@ -76,9 +76,9 @@
                     <div class="d-flex align-items-center justify-content-between small">
                         <div class="text-muted">Copyright &copy; Curso Celke - Laravel 10 {{ date('Y') }}</div>
                         <div>
-                            <a href="#">Privacy Policy</a>
+                            <a href="#" style="text-decoration: none;">Privacy Policy</a>
                             &middot;
-                            <a href="#">Terms &amp; Conditions</a>
+                            <a href="#" style="text-decoration: none;">Terms &amp; Conditions</a>
                         </div>
                     </div>
                 </div>
