@@ -4,6 +4,7 @@ use App\Http\Controllers\ClasseController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -23,6 +24,9 @@ Route::get('/', function () {
 
 //Dashboard
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+
+//Login
+Route::get('/login', [LoginController::class, 'index'])->name('login.index');
 
 //Usuarios
 Route::get('/index-users', [UserController::class, 'index'])->name('user.index');
