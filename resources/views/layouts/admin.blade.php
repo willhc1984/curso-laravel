@@ -51,6 +51,11 @@
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-chalkboard-user"></i></i></div>
                             Cursos
                         </a>
+                        <a @class(['nav-link', 'active' => isset($menu) && $menu == 'users']) 
+                                class="nav-link" href="{{ route('user.index') }}">
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-users"></i></i></div>
+                            Usuários
+                        </a>
                         <a class="nav-link" href="#">
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-right-from-bracket"></i></i></div>
                             Sair

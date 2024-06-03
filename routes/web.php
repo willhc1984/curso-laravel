@@ -4,6 +4,7 @@ use App\Http\Controllers\ClasseController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,8 +21,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//dashboard
+//Dashboard
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+
+//Usuarios
+Route::get('/index-users', [UserController::class, 'index'])->name('user.index');
+Route::get('/show-user/{user}', [UserController::class, 'show'])->name('user.show');
+Route::get('/create-user', [UserController::class, 'create'])->name('user.create');
+Route::post('/store-user', [UserController::class, 'store'])->name('user.store');
+Route::get('/edit-user/{user}', [UserController::class, 'edit'])->name('user.edit');
+Route::put('/update-user/{user}', [UserController::class, 'update'])->name('user.update');
+Route::get('/edit-user-password/{user}', [UserController::class, 'editPassword'])->name('user.edit-password');
+Route::put('/update-user-password/{user}', [UserController::class, 'updatePassword'])->name('user.update-password');
+Route::delete('/destroy-user/{user}', [UserController::class, 'destroy'])->name('user.destroy');
 
 //Cursos
 Route::get('/index-course', [CourseController::class, 'index'])->name('course.index');
