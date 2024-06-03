@@ -3,9 +3,9 @@
 
     <div class="container-fluid px-4">
         <div class="mb-1 space-between-elements">
-            <h2 class="mt-3">Curso</h2>
+            <h2 class="mt-3">Aula</h2>
             <ol class="breadcrumb mb-3 mt-3">
-                <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('course.index') }}">Cursos</a></li>
                 <li class="breadcrumb-item active">Curso</li>
             </ol>

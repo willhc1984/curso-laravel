@@ -5,7 +5,8 @@
         <div class="mb1 space-between-elements">
             <h2 class="mt-3">Dashboard</h2>
             <ol class="breadcrumb mb-3 mt-3">
-                <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('course.index') }}">Cursos</a></li>
                 <li class="breadcrumb-item active">Cursos</li>
             </ol>            
         </div>

@@ -15,7 +15,7 @@ class UserController extends Controller
     //Listar usuarios
     public function index(){
         //Recuperar os registros no banco de dados
-        $users = User::orderByDesc('created_at')->paginate(20);
+        $users = User::orderByDesc('created_at')->paginate(5);
 
         //Carregar view
         return view('users.index', ['menu' => 'users', 'users' => $users]);
@@ -129,7 +129,7 @@ class UserController extends Controller
         try{
             //Edita as informações no banco de dados
             $user->update([
-                'password' => $request->password,
+                'password' => Hash::make($request->password),
             ]);
 
             //Salvar log
@@ -150,4 +150,24 @@ class UserController extends Controller
             return back()->withInput()->with('error', 'Senha do usuário não editada!');
         }
     }
+
+    //Excluir usuario no banco de dados
+    public function destroy(User $user){
+        try{
+            //Excluir usuario
+            $user->delete();
+            //Salvar log
+            Log::info('Usuario deletado!', ['id' => $user->id]);
+
+            //Redireciona e envia mesnagem de sucesso
+            return redirect()->route('user.index')->with('success', 'Usuário exluido!');
+
+        }catch(Exception $e){
+            //Salva log
+            Log::info('Usuario não excluido', ['error' => $e->getMessage()]);
+            //Redireciona com mensagem de erro
+            return redirect()->route('user.index')->with('error', 'Usuário não excluido!');
+        }
+    }
+
 }
