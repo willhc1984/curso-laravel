@@ -7,7 +7,7 @@
         <h2 class="mt-3">Dashboard</h2>
         <ol class="breadcrumb mb-3 mt-3 p-1 rounded bg-light">
             <li class="breadcrumb-item"><a class="text-decoration-none" href="#">Dashboard</a></li>
-            <li class="breadcrumb-item active">Cursos</li>
+            <li class="breadcrumb-item active">Usuários</li>
         </ol>            
     </div>
 
@@ -39,9 +39,7 @@
                             <th scope="row">{{ $user->id }}</th>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
-                            <td class="d-md-flex justify-content-center">                                
-                                <a href="{{ route('user.index', ['user' => $user->id]) }}" class="btn btn-info btn-sm me-1 mb-1">
-                                    <i class="fa-solid fa-list-check"></i> Usuários</a>
+                            <td class="d-md-flex justify-content-center">
                                 <a href="{{ route('user.show', ['user' => $user->id]) }}" class="btn btn-secondary btn-sm me-1 mb-1">
                                     <i class="fa-solid fa-magnifying-glass"></i> Visualizar</a>
                                 <a href="{{ route('user.edit', ['user' => $user->id]) }}" class="btn btn-primary btn-sm me-1 mb-1">

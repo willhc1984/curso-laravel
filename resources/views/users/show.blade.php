@@ -17,9 +17,9 @@
                 <span class="d-flex">
                     <a href="{{ route('user.create') }}" class="btn btn-success btn-sm me-1">
                         <i class="fa-solid fa-square-plus"></i> Cadastrar</a>
-                    <a href="{{ route('user.index', ['user' => $user->id]) }}" class="btn btn-info btn-sm me-1"><i
-                            class="fa-solid fa-list"></i> Usuários</a>
-
+                        <a href="{{ route('user.edit-password', ['user' => $user->id]) }}" class="btn btn-warning btn-sm me-1"><i
+                            class="fa-solid fa-pen-to-square"></i>Editar senha
+                    </a>
                     <a href="{{ route('user.edit', ['user' => $user->id]) }}" class="btn btn-warning btn-sm me-1"><i
                             class="fa-solid fa-pen-to-square"></i>Editar
                     </a>

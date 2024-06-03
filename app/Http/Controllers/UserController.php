@@ -7,6 +7,7 @@ use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
@@ -44,7 +45,7 @@ class UserController extends Controller
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
-                'password' => $request->password,
+                'password' => Hash::make($request->password),
             ]);
 
             //Salvar log
@@ -65,6 +66,88 @@ class UserController extends Controller
 
             //Redireciona usuario e envia mensagem de erro
             return back()->withInput()->with('error', 'Usuário não cadastrado.');
+        }
+    }
+
+    //Carregar formulario editar usuario 
+    public function edit(User $user){
+        //Carrega a view
+        return view('users.edit', ['menu' => 'users', 'user' => $user]);
+    }
+
+    //Editar usuario no banco de dados
+    public function update(UserRequest $request, User $user) {
+        //Validar formulario
+        $request->validated();
+        //Ponto inicial da transação
+        DB::beginTransaction();
+
+        try{
+            //Editar as informação no banco de dados
+            $user->update([
+                'name' => $request->name,
+                'email' => $request->email,
+            ]);
+
+            //Salvar log
+            Log::info('Usuario editado.', ['id' => $user->id]);
+            //Operação é concluida com exito
+            DB::commit();
+
+            //Redirecionar usuario e enviar mensagem de sucesso
+            return redirect()->route('user.show', ['user' => $request->user])->with('success', 'Usuário editado!');
+
+        }catch(Exception $e){
+            //Salvar log
+            Log::info('Usuario não editado.', ['error' => $e->getMessage()]);
+            //Operação nao concluida
+            DB::rollBack();
+            //Redireciona com mensagem de erro
+            return back()->withInput()->with('error', 'Usuário não editado.');
+        }    
+    }
+
+    //Carregar formulario de editar senha
+    public function editPassword(User $user){
+        //Carregar view
+        return view('users.editPassword', ['menu' => 'users', 'user' => $user]);
+    }
+
+    //Salva senha do usuario
+    public function updatePassword(Request $request, User $user){
+        //Validar o formulario
+        $request->validate([
+            'password' => 'required|min:6',
+        ],[
+            'password.required' => 'O campo senha é obrigatório.',
+            'password.min' => 'A senha deve conter no minimo :min caracteres.'
+        ]);
+
+        //Inicio da transação
+        DB::beginTransaction();
+
+        try{
+            //Edita as informações no banco de dados
+            $user->update([
+                'password' => $request->password,
+            ]);
+
+            //Salvar log
+            Log::info('Senha do usuario editada.');
+
+            //Operação é concluida
+            DB::commit();
+
+            //Redireciona ususairo com mensagem de exito
+            return redirect()->route('user.show', ['user' => $request->user])->with('success', 'Senha editada!');
+
+        }catch(Exception $e){
+            //Salvar log
+            Log::info('Senha não editada!', ['error' => $e->getMessage()]);
+            //Operação não é concluida
+            DB::rollBack();
+            //Redireciona usuario com mensagem de erro
+            return back()->withInput()->with('error', 'Senha do usuário não editada!');
         }
     }
 }
