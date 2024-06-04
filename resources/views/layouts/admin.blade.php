@@ -30,7 +30,7 @@
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item" href="#!">Perfil</a></li>
                     <li><hr class="dropdown-divider" /></li>
-                    <li><a class="dropdown-item" href="#!">Sair</a></li>
+                    <li><a class="dropdown-item" href="{{ route('login.destroy') }}">Sair</a></li>
                 </ul>
             </li>
         </ul>
@@ -56,7 +56,7 @@
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-users"></i></i></div>
                             Usuários
                         </a>
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="{{ route('login.destroy') }}">
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-right-from-bracket"></i></i></div>
                             Sair
                         </a>
@@ -64,8 +64,11 @@
                     </div>
                 </div>
                 <div class="sb-sidenav-footer">
-                    <div class="small">Logged in as:</div>
-                    Start Bootstrap
+                    <div class="small">Usuário: 
+                        @if(auth()->check())
+                            <b>{{ auth()->user()->name }}</b>
+                        @endif
+                    </div>
                 </div>
             </nav>
         </div>
