@@ -11,13 +11,16 @@
                         <div class="card shadow-lg border-0 rounded-lg mt-5">
                             <div class="card-header"><h3 class="text-center font-weight-light my-4">Área Restrita</h3></div>
                             <div class="card-body">
-                                <form>
+                                <x-alert />
+                                <form action="{{ route('login.process') }}" method="POST">
+                                    @csrf
+                                    @method('POST')
                                     <div class="form-floating mb-3">
-                                        <input class="form-control" id="email" type="email" placeholder="E-mail" />
+                                        <input class="form-control" id="email" name="email" type="email" value="{{ old('email') }}" placeholder="E-mail" />
                                         <label for="email">E-mail</label>
                                     </div>
                                     <div class="form-floating mb-3">
-                                        <input class="form-control" id="password" type="password" placeholder="Senha" />
+                                        <input class="form-control" id="password" type="password" name="password"  value="{{ old('password') }}" placeholder="Senha" />
                                         <label for="password">Senha</label>
                                     </div>
                                     <div class="form-check mb-3">
