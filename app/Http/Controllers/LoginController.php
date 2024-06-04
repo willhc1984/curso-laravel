@@ -3,8 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\LoginUserRequest;
+use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class LoginController extends Controller
 {
@@ -30,6 +36,45 @@ class LoginController extends Controller
 
         //Redirecionar usuario
         return redirect()->route('dashboard.index');        
+    }
+
+    public function create(){
+        //Carregar view
+        return view('login.create');
+    }
+
+    //Cadastrar no banco de dados
+    public function store(LoginUserRequest $request){
+        //Validar formulario
+        $request->validated();
+        
+        //Marca inicio da transação
+        DB::beginTransaction();
+
+        try{
+            //Cadastrar usuario no banco de dados
+            $user =  User::create([
+                'name' => $request->name, 
+                'email' =>  $request->email, 
+                'password' => Hash::make($request->password),
+            ]);
+
+            //Salvando log
+            Log::info('Usuário cadastrado com sucesso!', ['id' => $user->id]);
+
+            //Operação concluida com exito
+            DB::commit();
+            
+            //Redirecionar usuario
+            return redirect()->route('login.index')->with('success','Usuário cadastrado com sucesso!');
+
+        }catch(Exception $e){
+            //Operação não concluida
+            DB::rollBack();
+            //Salvando log
+            Log::warning('Usuário não cadastrado!', ['error' => $e->getMessage()]);            
+            return back()->withInput()->with('error','Usuário não cadastrado!');
+        }
     }
 
     //Deslogar o usuario
