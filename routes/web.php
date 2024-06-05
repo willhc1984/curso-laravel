@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -35,6 +36,13 @@ Route::group(['middleware' => 'auth'], function(){
 
     //Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+
+    //Perfil
+    Route::get('/show-profile', [ProfileController::class, 'show'])->name('profile.show');
+    Route::get('/edit-profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/update-profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('/edit-profile-password', [ProfileController::class, 'editPassword'])->name('profile.edit-password');
+    Route::put('/update-profile-password', [ProfileController::class, 'updatePassword'])->name('profile.update-password');
 
     //Usuarios
     Route::get('/index-users', [UserController::class, 'index'])->name('user.index');
