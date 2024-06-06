@@ -33,6 +33,8 @@ Route::post('/store-user-login', [LoginController::class, 'store'])->name('login
 //Recuperar senha
 Route::get('/forgot-password', [ForgotPasswordController::class, 'showForgotPassword'])->name('forgot-password.show');
 Route::post('/forgot-password', [ForgotPasswordController::class, 'submitForgotPassword'])->name('forgot-password.submit');
+Route::post('/', [LoginController::class, 'index'])->name('password.reset');
+Route::get('/reset-password/{token}', [ForgotPasswordController::class, 'showResetPassword'])->name('reset-password.show');
 
 Route::group(['middleware' => 'auth'], function(){
 

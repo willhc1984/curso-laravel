@@ -20,8 +20,8 @@
                                         <label for="email">E-mail</label>
                                     </div>
                                     <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                        <a class="small text-decoration-none" href="{{ route('forgot-password.show') }}">Esqueceu a Senha?</a>
-                                        <button type="submit" class="btn btn-primary">Recuperar</a>
+                                        <span>Recuperar senha</span>
+                                        <button type="submit" class="btn btn-primary" onclick="this.innerText = 'Recuperando...'">Recuperar</a>
                                     </div>
                                 </form>
                             </div>
