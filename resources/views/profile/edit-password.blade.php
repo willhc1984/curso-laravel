@@ -8,7 +8,7 @@
             <ol class="breadcrumb mb-3 mt-3">
                 <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('profile.show') }}">Perfil</a></li>
-                <li class="breadcrumb-item active">Editar</li>
+                <li class="breadcrumb-item active">Editar senha</li>
             </ol>
         </div>  
 

@@ -29,7 +29,7 @@
                                         <label class="form-check-label" for="inputRememberPassword">Lembrar-me</label>
                                     </div>
                                     <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                        <a class="small text-decoration-none" href="#">Esqueceu a Senha?</a>
+                                        <a class="small text-decoration-none" href="{{ route('forgot-password.show') }}">Esqueceu a Senha?</a>
                                         <button type="submit" class="btn btn-primary" href="#">Acessar</a>
                                     </div>
                                 </form>

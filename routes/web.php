@@ -4,6 +4,7 @@ use App\Http\Controllers\ClasseController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -28,6 +29,10 @@ Route::get('/login', [LoginController::class, 'index'])->name('login.index');
 Route::post('/login', [LoginController::class, 'loginProcess'])->name('login.process');
 Route::get('/create-user-login', [LoginController::class, 'create'])->name('login.create-user');
 Route::post('/store-user-login', [LoginController::class, 'store'])->name('login.store-user');
+
+//Recuperar senha
+Route::get('/forgot-password', [ForgotPasswordController::class, 'showForgotPassword'])->name('forgot-password.show');
+Route::post('/forgot-password', [ForgotPasswordController::class, 'submitForgotPassword'])->name('forgot-password.submit');
 
 Route::group(['middleware' => 'auth'], function(){
 
