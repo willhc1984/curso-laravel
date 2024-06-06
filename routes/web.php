@@ -35,6 +35,7 @@ Route::get('/forgot-password', [ForgotPasswordController::class, 'showForgotPass
 Route::post('/forgot-password', [ForgotPasswordController::class, 'submitForgotPassword'])->name('forgot-password.submit');
 Route::post('/', [LoginController::class, 'index'])->name('password.reset');
 Route::get('/reset-password/{token}', [ForgotPasswordController::class, 'showResetPassword'])->name('reset-password.show');
+Route::post('/reset-password', [ForgotPasswordController::class, 'submitResetPassword'])->name('reset-password.submit');
 
 Route::group(['middleware' => 'auth'], function(){
 
