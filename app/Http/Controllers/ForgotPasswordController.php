@@ -87,12 +87,17 @@ class ForgotPasswordController extends Controller
             );
 
             //Salvar log
-            Log::info('Senha atualizada.', ['resposta' => $status, 'email' => $request->email]);
-
+            if($status === Password::PASSWORD_RESET){
+                Log::info('Senha atualizada.', ['resposta' => $status, 'email' => $request->email]);
+            }else{
+                Log::info('Senha não atualizada.', ['resposta' => $status, 'email' => $request->email]);
+            }
+            
             //Redirecionar usuario com mensagem de sucesso.
             return $status === Password::PASSWORD_RESET 
                     ? redirect()->route('login.index')->with('success', 'Senha atualizada com sucesso! Faça o login.')
-                    : back()->withInput()->with('error', __($status));
+                    : redirect()->route('login.index')->with('error', __($status));
+                    //: back()->withInput()->with('error', __($status));
 
         }catch(Exception $e){
             //Salvar log
@@ -102,6 +107,5 @@ class ForgotPasswordController extends Controller
             return back()->withInput()->with('error', 'Erro: tente mais tarde.');
         }
     }
-
 
 }

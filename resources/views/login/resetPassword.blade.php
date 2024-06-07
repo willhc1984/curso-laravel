@@ -15,22 +15,20 @@
                                 <form action="{{ route('reset-password.submit') }}" method="POST">
                                     @csrf
                                     @method('POST')
+                                    <input type="hidden" name="token" value="{{ $token }}" />
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="email" name="email"
-                                            placeholder="E-mail" value="{{ old('email') }}" />
-                                        <label for="email"></label>
+                                        <input class="form-control" id="email" name="email" type="email" value="{{ old('email') }}" placeholder="Seu E-mail cadastrado" />
+                                        <label for="email">E-mail</label>
                                     </div>
                                     <div class="form-floating mb-3">
-                                        <input type="password" class="form-control" id="password" name="password"
-                                            placeholder="Nova senha" value="{{ old('password') }}" />
-                                        <input type="hidden" name="token" value="{{ $token }}" />
-                                        <label for="password"></label>
+                                        <input class="form-control" id="password" name="password" type="password" value="{{ old('password') }}" placeholder="Nova senha" />
+                                        <label for="email">Nova senha</label>
                                     </div>
                                     <div class="form-floating mb-3">
-                                        <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" 
-                                            placeholder="Confirmar nova senha"  value="{{ old('password_confirmation') }}" />
-                                        <label for="password_confirmation"></label>
+                                        <input class="form-control" id="password_confirmation" name="password_confirmation" type="password" value="{{ old('password_confirmation') }}" placeholder="Confirmar nova senha" />
+                                        <label for="email">Confirmar nova senha</label>
                                     </div>
+                                    
                                     <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
                                         <span>Resetar senha</span>
                                         <button type="submit" class="btn btn-primary" onclick="this.innerText = 'Resetando...'">Resetar</a>
