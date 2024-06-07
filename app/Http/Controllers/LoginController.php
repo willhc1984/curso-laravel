@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Spatie\Permission\Models\Permission;
 
 class LoginController extends Controller
 {
@@ -33,6 +34,21 @@ class LoginController extends Controller
             //Redirecionar o usuario para pagina anterior e envia mensagem de erro (mensagenm em components - alert)
             return back()->withInput()->with('error', 'E-mail ou senha inválidos');
         }
+
+        //Obter usuario autenticado
+        $user = Auth::user();
+        $user = User::find($user->id);
+
+        //Verificar se as permissões é Super Admin, tem acsso a todas as paginas
+        if($user->hasRole('Super Admin')){
+            //Usuario tem todas as permissões
+            $permissions = Permission::pluck('name')->toArray();
+        }else{
+            $permissions = $user->getPermissionsViaRoles()->pluck('name')->toArray();
+        }
+
+        //Atribuir as pemissões
+        $user->syncPermissions($permissions);
 
         //Redirecionar usuario
         return redirect()->route('dashboard.index');        

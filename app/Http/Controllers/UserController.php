@@ -12,6 +12,16 @@ use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
+    //Executar construct quando instanciar a classe
+    public function __construct(){
+        $this->middleware('auth');
+        $this->middleware('permission:index-course', ['only' => ['index']]);
+        $this->middleware('permission:show-course', ['only' => ['show']]);
+        $this->middleware('permission:create-course', ['only' => ['create']]);
+        $this->middleware('permission:edit-course', ['only' => ['edit']]);
+        $this->middleware('permission:destroy-course', ['only' => ['destroy']]);
+    }
+    
     //Listar usuarios
     public function index(){
         //Recuperar os registros no banco de dados
