@@ -12,16 +12,6 @@ use Illuminate\Support\Facades\Log;
 
 class ClasseController extends Controller
 {
-    //Executar construct quando instanciar a classe
-    public function __construct(){
-        $this->middleware('auth');
-        $this->middleware('permission:index-course', ['only' => ['index']]);
-        $this->middleware('permission:show-course', ['only' => ['show']]);
-        $this->middleware('permission:create-course', ['only' => ['create']]);
-        $this->middleware('permission:edit-course', ['only' => ['edit']]);
-        $this->middleware('permission:destroy-course', ['only' => ['destroy']]);
-    }
-
     //Listar aulas
     public function index(Course $course){
         //Busca aulas no banco de dados

@@ -15,22 +15,30 @@
             <div class="card-header space-between-elements">
                 <span>Listar</span>
                 <span class="d-flex">
-                    <a href="{{ route('course.create') }}" class="btn btn-success btn-sm me-1">
-                        <i class="fa-solid fa-square-plus"></i> Cadastrar</a>
+                    @can('create-course')
+                        <a href="{{ route('course.create') }}" class="btn btn-success btn-sm me-1">
+                            <i class="fa-solid fa-square-plus"></i> Cadastrar</a>
+                    @endcan
+
                     <a href="{{ route('classe.index', ['course' => $course->id]) }}" class="btn btn-info btn-sm me-1"><i
                             class="fa-solid fa-list"></i> Aulas</a>
 
-                    <a href="{{ route('course.edit', ['course' => $course->id]) }}" class="btn btn-warning btn-sm me-1"><i
-                            class="fa-solid fa-pen-to-square"></i>Editar
-                    </a>
+                    @can('edit-course')
+                        <a href="{{ route('course.edit', ['course' => $course->id]) }}" class="btn btn-warning btn-sm me-1"><i
+                                class="fa-solid fa-pen-to-square"></i>Editar
+                        </a>
+                    @endcan
 
-                    <form method="POST" action="{{ route('course.destroy', ['course' => $course->id]) }}">
-                        @csrf
-                        @method('delete')
-                        <button type="submit" class="btn btn-danger btn-sm me-1"
-                            onclick="return confirm('Tem certeza que deseja apagar este registro?')"><i
-                                class="fa-regular fa-trash-can"></i> Apagar</button>
-                    </form>
+                    @can('destroy-course')
+                        <form method="POST" action="{{ route('course.destroy', ['course' => $course->id]) }}">
+                            @csrf
+                            @method('delete')
+                            <button type="submit" class="btn btn-danger btn-sm me-1"
+                                onclick="return confirm('Tem certeza que deseja apagar este registro?')"><i
+                                    class="fa-regular fa-trash-can"></i> Apagar</button>
+                        </form>
+                    @endcan
+
                 </span>
             </div>
             <div class="card-body">
@@ -41,18 +49,22 @@
 
                     <dt class="col-sm-3">ID: </dt>
                     <dd class="col-sm-9">{{ $course->id }}</dd>
-                    
+
                     <dt class="col-sm-3">Nome: </dt>
                     <dd class="col-sm-9">{{ $course->name }}</dd>
-                    
+
                     <dt class="col-sm-3">Preço: </dt>
                     <dd class="col-sm-9">{{ 'R$ ' . number_format($course->price, 2, ',', '.') }}</dd>
-                    
+
                     <dt class="col-sm-3">Cadastrado: </dt>
-                    <dd class="col-sm-9">{{ \Carbon\Carbon::parse($course->created_at)->tz('America/Sao_Paulo')->format('d/m/Y H:i:s') }}</dd>
-                    
+                    <dd class="col-sm-9">
+                        {{ \Carbon\Carbon::parse($course->created_at)->tz('America/Sao_Paulo')->format('d/m/Y H:i:s') }}
+                    </dd>
+
                     <dt class="col-sm-3">Editado: </dt>
-                    <dd class="col-sm-9">{{ \Carbon\Carbon::parse($course->updated_at)->tz('America/Sao_Paulo')->format('d/m/Y H:i:s') }}</dd>
+                    <dd class="col-sm-9">
+                        {{ \Carbon\Carbon::parse($course->updated_at)->tz('America/Sao_Paulo')->format('d/m/Y H:i:s') }}
+                    </dd>
 
                 </dl>
             </div>

@@ -19,10 +19,13 @@
                     <a href="{{ route('course.index') }}" class="btn btn-info btn-sm me-1"><i
                             class="fa-solid fa-list"></i> Listar</a>
 
+                    @can('show-course')
                     <a href="{{ route('course.show', ['course' => $course->id]) }}" class="btn btn-secondary btn-sm me-1"><i
                             class="fa-solid fa-magnifying-glass"></i>Visualizar
                     </a>
+                    @endcan
 
+                    @can('destroy-course')
                     <form method="POST" action="{{ route('course.destroy', ['course' => $course->id]) }}">
                         @csrf
                         @method('delete')
@@ -30,6 +33,7 @@
                             onclick="return confirm('Tem certeza que deseja apagar este registro?')"><i
                                 class="fa-regular fa-trash-can"></i> Apagar</button>
                     </form>
+                    @endcan
                 </span>
             </div>
 
