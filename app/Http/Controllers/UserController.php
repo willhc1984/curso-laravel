@@ -9,9 +9,20 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {    
+     //Executar construct quando instanciar a classe
+     public function __construct(){
+        $this->middleware('auth');
+        $this->middleware('permission:index-user', ['only' => ['index']]);
+        $this->middleware('permission:show-user', ['only' => ['show']]);
+        $this->middleware('permission:create-user', ['only' => ['create']]);
+        $this->middleware('permission:edit-user', ['only' => ['edit']]);
+        $this->middleware('permission:destroy-user', ['only' => ['destroy']]);
+    }
+
     //Listar usuarios
     public function index(){
         //Recuperar os registros no banco de dados
@@ -29,8 +40,13 @@ class UserController extends Controller
 
     //Carregar formulario cadastrar novo usuario
     public function create() {
-        //Carregar view
-        return view('users.create', ['menu' => 'users']);        
+        //Recuperar os papeis
+        $roles = Role::pluck('name')->all();
+        //Carregar view com opção para associar Role ao usuario
+        return view('users.create', [
+            'menu' => 'users',
+            'roles' => $roles,
+        ]);        
     }
 
     //Cadastrar usuario no banco de dados
@@ -47,6 +63,9 @@ class UserController extends Controller
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
             ]);
+
+            //Atribuir papel ao usuário
+            $user->assignRole($request->roles);
 
             //Salvar log
             Log::info('Usuário cadastrado.', ['id' => $user->id, $user]);

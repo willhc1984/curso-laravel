@@ -40,7 +40,7 @@
             <div class="card-body">
                 
                 <x-alert /> 
-
+                
                 <form class="row g-3" action="{{ route('course.update', ['course' => $course->id]) }}" method="POST">
                     @csrf
                     @method('PUT')

@@ -75,6 +75,9 @@ class LoginController extends Controller
                 'password' => Hash::make($request->password),
             ]);
 
+            //Atribuir papel ao usuário
+            $user->assignRole("Aluno");
+
             //Salvando log
             Log::info('Usuário cadastrado com sucesso!', ['id' => $user->id]);
 

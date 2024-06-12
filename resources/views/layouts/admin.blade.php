@@ -59,11 +59,13 @@
                             </a>
                         @endcan
 
-                        <a @class(['nav-link', 'active' => isset($menu) && $menu == 'users']) class="nav-link" href="{{ route('user.index') }}">
-                            <div class="sb-nav-link-icon"><i class="fa-solid fa-users"></i></i></div>
-                            Usuários
-                        </a>
-                        
+                        @can('index-user')
+                            <a @class(['nav-link', 'active' => isset($menu) && $menu == 'users']) class="nav-link" href="{{ route('user.index') }}">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-users"></i></i></div>
+                                Usuários
+                            </a>
+                        @endcan
+
                         <a class="nav-link" href="{{ route('login.destroy') }}">
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-right-from-bracket"></i></i></div>
                             Sair

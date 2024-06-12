@@ -17,8 +17,8 @@
                 <span class="d-flex">
                     <a href="{{ route('user.create') }}" class="btn btn-success btn-sm me-1">
                         <i class="fa-solid fa-square-plus"></i> Cadastrar</a>
-                        <a href="{{ route('user.edit-password', ['user' => $user->id]) }}" class="btn btn-warning btn-sm me-1"><i
-                            class="fa-solid fa-pen-to-square"></i>Editar senha
+                    <a href="{{ route('user.edit-password', ['user' => $user->id]) }}"
+                        class="btn btn-warning btn-sm me-1"><i class="fa-solid fa-pen-to-square"></i>Editar senha
                     </a>
                     <a href="{{ route('user.edit', ['user' => $user->id]) }}" class="btn btn-warning btn-sm me-1"><i
                             class="fa-solid fa-pen-to-square"></i>Editar
@@ -41,13 +41,22 @@
 
                     <dt class="col-sm-3">ID: </dt>
                     <dd class="col-sm-9">{{ $user->id }}</dd>
-                    
+
                     <dt class="col-sm-3">Nome: </dt>
                     <dd class="col-sm-9">{{ $user->name }}</dd>
-                    
+
                     <dt class="col-sm-3">Email: </dt>
                     <dd class="col-sm-9">{{ $user->email }}</dd>
-                    
+
+                    <dt class="col-sm-3">Papel: </dt>
+                    <dd class="col-sm-9">
+                        @forelse($user->getRoleNames() as $role)
+                            {{ $role }}
+                        @empty
+
+                        @endforelse
+                    </dd>
+
                 </dl>
             </div>
         </div>
