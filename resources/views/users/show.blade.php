@@ -51,7 +51,7 @@
                     <dt class="col-sm-3">Papel: </dt>
                     <dd class="col-sm-9">
                         @forelse($user->getRoleNames() as $role)
-                            {{ $role }}
+                            {{ $role }} 
                         @empty
 
                         @endforelse

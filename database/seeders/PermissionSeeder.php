@@ -15,11 +15,11 @@ class PermissionSeeder extends Seeder
     public function run()
     {
         $permissions = [
-            'index-course',
-            'show-course',
-            'create-course',
-            'edit-course',
-            'destroy-course',
+            'index-course', 'index-user', 
+            'show-course', 'show-user',
+            'create-course', 'create-user',
+            'edit-course', 'edit-user',
+            'destroy-course', 'destroy-user',
 
             'index-classe',
             'show-classe',

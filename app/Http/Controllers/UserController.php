@@ -6,6 +6,7 @@ use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
@@ -40,7 +41,7 @@ class UserController extends Controller
 
     //Carregar formulario cadastrar novo usuario
     public function create() {
-        //Recuperar os papeis
+        //Recuperar os papeis no banco de dados
         $roles = Role::pluck('name')->all();
         //Carregar view com opção para associar Role ao usuario
         return view('users.create', [
@@ -68,7 +69,7 @@ class UserController extends Controller
             $user->assignRole($request->roles);
 
             //Salvar log
-            Log::info('Usuário cadastrado.', ['id' => $user->id, $user]);
+            Log::info('Usuário cadastrado.', ['id' => $user->id, 'action_user_id' => Auth::id()]);
             //Operação concluida com exito
             DB::commit();
 
@@ -90,14 +91,26 @@ class UserController extends Controller
 
     //Carregar formulario editar usuario 
     public function edit(User $user){
-        //Carrega a view
-        return view('users.edit', ['menu' => 'users', 'user' => $user]);
+        //Recuperar papeis no banco de dados
+        $roles = Role::pluck('name')->all();
+
+        //Recuperar papeis do usuario
+        $userRoles = $user->roles->pluck('name')->first();
+
+        //Carrega a view com as roles
+        return view('users.edit', [
+            'menu' => 'users', 
+            'user' => $user,
+            'roles' => $roles,
+            'userRoles' => $userRoles,
+        ]);
     }
 
     //Editar usuario no banco de dados
     public function update(UserRequest $request, User $user) {
         //Validar formulario
         $request->validated();
+
         //Ponto inicial da transação
         DB::beginTransaction();
 
@@ -108,8 +121,11 @@ class UserController extends Controller
                 'email' => $request->email,
             ]);
 
+            //Atribui papeis ao usuario
+            $user->syncRoles($request->roles);
+
             //Salvar log
-            Log::info('Usuario editado.', ['id' => $user->id]);
+            Log::info('Usuario editado.', ['id' => $user->id, 'action_user_id' => Auth::id()]);
             //Operação é concluida com exito
             DB::commit();
 
@@ -118,7 +134,7 @@ class UserController extends Controller
 
         }catch(Exception $e){
             //Salvar log
-            Log::info('Usuario não editado.', ['error' => $e->getMessage()]);
+            Log::info('Usuario não editado.', ['error' => $e->getMessage(), 'action_user_id' => Auth::id()]);
             //Operação nao concluida
             DB::rollBack();
             //Redireciona com mensagem de erro
@@ -152,7 +168,7 @@ class UserController extends Controller
             ]);
 
             //Salvar log
-            Log::info('Senha do usuario editada.');
+            Log::info('Senha do usuario editada.', ['id' => $user->id, 'action_user_id' => Auth::id()]);
 
             //Operação é concluida
             DB::commit();
@@ -175,8 +191,12 @@ class UserController extends Controller
         try{
             //Excluir usuario
             $user->delete();
-            //Salvar log
-            Log::info('Usuario deletado!', ['id' => $user->id]);
+
+            //Remove todos papeis atribuidos ao usuario
+            $user->syncRoles([]);
+
+            //Salvar log com auditoria
+            Log::info('Usuario deletado!', ['id' => $user->id, 'action_user_id' => Auth::id()]);
 
             //Redireciona e envia mesnagem de sucesso
             return redirect()->route('user.index')->with('success', 'Usuário exluido!');

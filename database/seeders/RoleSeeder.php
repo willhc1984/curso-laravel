@@ -27,11 +27,11 @@ class RoleSeeder extends Seeder
             ]);
 
             $admin->givePermissionTo([
-                'index-course',
-                'show-course',
-                'create-course',
-                'edit-course',
-                'destroy-course'
+                'index-course', 'index-user', 'index-classe',
+                'show-course', 'show-user', 'show-classe',
+                'create-course', 'create-user', 'create-classe',
+                'edit-course', 'edit-user', 'edit-classe',
+                'destroy-course', 'destroy-user', 'destroy-classe'
             ]);
         }
 
