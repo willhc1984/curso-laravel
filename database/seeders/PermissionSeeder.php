@@ -21,11 +21,11 @@ class PermissionSeeder extends Seeder
             'edit-course', 'edit-user',
             'destroy-course', 'destroy-user',
 
-            'index-classe',
-            'show-classe',
-            'create-classe',
-            'edit-classe',
-            'destroy-classe'
+            'index-classe', 'index-role',
+            'show-classe', 'show-role', 
+            'create-classe', 'create-role',
+            'edit-classe','edit-role',
+            'destroy-classe', 'destroy-role'
         ];
 
         foreach($permissions as $permission){

@@ -6,7 +6,9 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -80,5 +82,15 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/edit-classe/{classe}', [ClasseController::class, 'edit'])->name('classe.edit');
     Route::put('/update-classe/{classe}', [ClasseController::class, 'update'])->name('classe.update');
     Route::delete('destroy-classe/{classe}', [ClasseController::class, 'destroy'])->name('classe.destroy');
+
+    //Papéis
+    Route::get('/index-role', [RoleController::class, 'index'])->name('role.index');
+    Route::get('/create-role', [RoleController::class, 'create'])->name('role.create');
+    Route::get('/show-role', [RoleController::class, 'show'])->name('role.show');
+    Route::get('/edit-role', [RoleController::class, 'edit'])->name('role.edit');
+    Route::get('/destroy-role', [RoleController::class, 'destroy'])->name('role.destroy');
+
+    //Permissões
+    Route::get('/show-permission', [PermissionController::class, 'show'])->name('permission.show');
 
 });
