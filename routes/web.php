@@ -89,8 +89,11 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/show-role', [RoleController::class, 'show'])->name('role.show');
     Route::get('/edit-role', [RoleController::class, 'edit'])->name('role.edit');
     Route::get('/destroy-role', [RoleController::class, 'destroy'])->name('role.destroy');
+    Route::post('/store-role', [RoleController::class, 'store'])->name('role.store');
 
     //Permissões
     Route::get('/show-permission', [PermissionController::class, 'show'])->name('permission.show');
+    Route::get('/create-permission', [PermissionController::class, 'show'])->name('permission.show');
+    
 
 });
