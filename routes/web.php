@@ -86,9 +86,10 @@ Route::group(['middleware' => 'auth'], function(){
     //Papéis
     Route::get('/index-role', [RoleController::class, 'index'])->name('role.index');
     Route::get('/create-role', [RoleController::class, 'create'])->name('role.create');
-    Route::get('/show-role', [RoleController::class, 'show'])->name('role.show');
-    Route::get('/edit-role', [RoleController::class, 'edit'])->name('role.edit');
-    Route::get('/destroy-role', [RoleController::class, 'destroy'])->name('role.destroy');
+    Route::get('/show-role/{role}', [RoleController::class, 'show'])->name('role.show');
+    Route::get('/edit-role/{role}', [RoleController::class, 'edit'])->name('role.edit');
+    Route::delete('/destroy-role/{role}', [RoleController::class, 'destroy'])->name('role.destroy');
+    Route::delete('/update-role/{role}', [RoleController::class, 'update'])->name('role.update');
     Route::post('/store-role', [RoleController::class, 'store'])->name('role.store');
 
     //Permissões

@@ -16,6 +16,10 @@ class RoleController extends Controller
     public function __construct(){
         $this->middleware('auth');
         $this->middleware('permission:index-role', ['only' => ['index']]);
+        $this->middleware('permission:create-role', ['only' => ['create']]);
+        $this->middleware('permission:store-role', ['only' => ['store']]);
+        $this->middleware('permission:edit-role', ['only' => ['edit']]);
+        $this->middleware('permission:destroy-role', ['only' => ['destroy']]);
     }
 
     //Listar os papeis
@@ -68,5 +72,22 @@ class RoleController extends Controller
             //Redireciona usuario e envia mensagem de erro
             return back()->withInput()->with('error', 'Papel não cadastrado.');
         }     
+    }
+
+    //Exclui papel no banco de dados
+    public function destroy(Role $role){
+        //Exluir registro
+        try{
+            $role->delete();
+            //Salvando log
+            Log::info('Curso excluido com sucesso.', ['id' => $role->id, 'action_user_id' => Auth::id()]);
+            //Redireciona usuario com msg de successo
+            return redirect()->route('role.index')->with('success','Papel deletado!');
+        }catch(Exception $e){
+             //Salvando log de erro
+             Log::warning('Papel não excluido com sucesso.', ['id' => $role->id, 'action_user_id' => Auth::id()]);
+             //Redireciona com mensagemde erro
+             return redirect()->route('role.index')->with('erro', 'Papel não excluido.');
+        }
     }
 }
