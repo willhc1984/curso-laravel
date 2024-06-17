@@ -34,6 +34,43 @@ class RoleController extends Controller
         return view('roles.index', ['menu' => 'roles', 'roles' => $roles]);
     }
 
+    //Abrir formulario de editar
+    public function edit(Role $role){
+        //Carrega a view
+        return view('roles.edit', ['menu' => 'roles', 'role' => $role]);
+    }
+
+    //Atualiza papel no bancode dados
+    public function update(RoleRequest $request, Role $role){
+        //Validação do formulario
+        $request->validated();
+        
+        //Marca inicio da transação
+        DB::beginTransaction();
+
+        try{
+            $role->update([
+                'name' => $request->name,
+            ]);
+
+            //Operação concluida com exito
+            DB::commit();
+            //Salva log de exito
+            Log::info('Papel editado', ['id' => $role->id, 'action_user_id' => Auth::id()]);
+            //Redireciona com mensagme de sucesso
+            return redirect()->route('role.index', ['menu' => 'roles', 'role' => $request->role])
+                ->with('success', 'Papel editado!');
+
+        }catch(Exception $e){
+            //Operação não concluida
+            DB::rollBack();
+            //Salvando log de erro
+            Log::warning('Papel não foi editado.', ['id' => $role->id, 'action_user_id' => Auth::id()]);
+            //Redireciona com mensagem de erro
+            return back()->withInput()->with('error', 'Papel não editado! Tente novamente.');
+        }
+    }
+
     //Carrega tela de cadastro de papeis
     public function create() {
         return view('roles.create', ['menu' => 'roles']);
