@@ -15,24 +15,36 @@ class PermissionSeeder extends Seeder
     public function run()
     {
         $permissions = [
-            'index-course', 'index-user', 
-            'show-course', 'show-user',
-            'create-course', 'create-user',
-            'edit-course', 'edit-user',
-            'destroy-course', 'destroy-user',
+            ['title' => 'Listar cursos', 'name' => 'index-course'], 
+            ['title' => 'Visualizar curso', 'name' => 'show-course'],
+            ['title' => 'Cadastrar cursos', 'name' => 'create-course'],
+            ['title' => 'Editar cursos', 'name' => 'edit-course'],
+            ['title' => 'Apagar cursos', 'name' => 'destroy-course'],
 
-            'index-classe', 'index-role',
-            'show-classe', 'show-role', 
-            'create-classe', 'create-role',
-            'edit-classe','edit-role',
-            'destroy-classe', 'destroy-role',
+            ['title' => 'Listar usuários', 'name' => 'index-user'], 
+            ['title' => 'Visualizar usuários', 'name' => 'show-user'],
+            ['title' => 'Cadastrar usuários', 'name' => 'create-user'],
+            ['title' => 'Editar usuários', 'name' => 'edit-user'],
+            ['title' => 'Apagar usuários', 'name' => 'destroy-user'],
+
+            ['title' => 'Listar aulas', 'name' => 'index-classe'], 
+            ['title' => 'Visualizar aulas', 'name' => 'show-classe'],
+            ['title' => 'Cadastrar aulas', 'name' => 'create-classe'],
+            ['title' => 'Editar aulas', 'name' => 'edit-classe'],
+            ['title' => 'Apagar aulas', 'name' => 'destroy-classe'],
+
+            ['title' => 'Listar papéis', 'name' => 'index-role'], 
+            ['title' => 'Visualizar papéis', 'name' => 'show-role'],
+            ['title' => 'Cadastrar papéis', 'name' => 'create-role'],
+            ['title' => 'Editar papéis', 'name' => 'edit-role'],
+            ['title' => 'Apagar papéis', 'name' => 'destroy-role'],
         ];
 
         foreach($permissions as $permission){
-            $existingPermission = Permission::where('name', $permission)->first();
+            $existingPermission = Permission::where('name', $permission['name'])->first();
 
             if(!$existingPermission){
-                Permission::create(['name' => $permission, 'guard_name' => 'web']);
+                Permission::create(['title' => $permission['title'], 'name' => $permission['name'], 'guard_name' => 'web']);
             }
         }
     }

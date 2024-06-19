@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AlterClassesAddOrderClasseTable extends Migration
+class AlterPermissionsAddTitle extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AlterClassesAddOrderClasseTable extends Migration
      */
     public function up()
     {
-        Schema::table('classes', function(Blueprint $table){
-            $table->integer('order_classe')->after('descricao');
+        Schema::table('permissions', function(Blueprint $table){
+            $table->string('title')->after('id');
         });
     }
 
@@ -25,8 +25,8 @@ class AlterClassesAddOrderClasseTable extends Migration
      */
     public function down()
     {
-        Schema::table('classes', function(Blueprint $table){
-            $table->dropColumn('order_classe');
+        Schema::table('permissions', function(Blueprint $table){
+            $table->dropColumn('title');
         });    
     }
 }

@@ -36,7 +36,8 @@ class RolePermissionController extends Controller
         return view('rolesPermission.index', [
             'menu' => 'roles', 
             'rolePermissions' => $rolePermissions,
-            'permissions' => $permissions
+            'permissions' => $permissions,
+            'role' => $role,
         ]);        
     }
 
