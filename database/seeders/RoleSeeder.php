@@ -31,7 +31,7 @@ class RoleSeeder extends Seeder
                 'show-course', 'show-user', 'show-classe',
                 'create-course', 'create-user', 'create-classe',
                 'edit-course', 'edit-user', 'edit-classe',
-                'destroy-course', 'destroy-user', 'destroy-classe'
+                'destroy-course', 'destroy-user', 'destroy-classe',
             ]);
         }
 
@@ -66,6 +66,11 @@ class RoleSeeder extends Seeder
         if(!Role::where('name', 'Aluno')->first()){
             $aluno = Role::create([
                 'name' => 'Aluno',
+            ]);
+
+            $aluno->givePermissionTo([
+                'index-course',
+                'show-course',
             ]);
         }
     }

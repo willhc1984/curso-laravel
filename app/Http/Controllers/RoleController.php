@@ -20,6 +20,7 @@ class RoleController extends Controller
         $this->middleware('permission:store-role', ['only' => ['store']]);
         $this->middleware('permission:edit-role', ['only' => ['edit']]);
         $this->middleware('permission:destroy-role', ['only' => ['destroy']]);
+        $this->middleware('permission:index-permission', ['only' => ['index']]);
     }
 
     //Listar os papeis
@@ -36,6 +37,7 @@ class RoleController extends Controller
 
     //Abrir formulario de editar
     public function edit(Role $role){
+        dd($role);
         //Carrega a view
         return view('roles.edit', ['menu' => 'roles', 'role' => $role]);
     }
@@ -44,7 +46,6 @@ class RoleController extends Controller
     public function update(RoleRequest $request, Role $role){
         //Validação do formulario
         $request->validated();
-        
         //Marca inicio da transação
         DB::beginTransaction();
 
@@ -60,7 +61,7 @@ class RoleController extends Controller
             //Redireciona com mensagme de sucesso
             return redirect()->route('role.index', ['menu' => 'roles', 'role' => $request->role])
                 ->with('success', 'Papel editado!');
-
+                
         }catch(Exception $e){
             //Operação não concluida
             DB::rollBack();

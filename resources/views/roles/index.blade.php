@@ -31,7 +31,7 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Nome</th>
-                            <th scope="col">Ações</th>
+                            <th scope="col" class="text-center">Ações</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -41,14 +41,9 @@
                                 <td>{{ $role->name }}</td>
                                 <td class="d-md-flex justify-content-center">  
                                     
-                                     @can('show-role')
-                                    <a href="{{ route('permission.show', ['role' => $role->id]) }}" class="btn btn-warning btn-sm me-1 mb-1">
+                                    @can('index-role-permission')
+                                    <a href="{{ route('role-permission.index', ['role' => $role->id]) }}" class="btn btn-warning btn-sm me-1 mb-1">
                                         <i class="fa-solid fa-list-check"></i> Permissões</a>
-                                    @endcan
-
-                                    @can('show-role')
-                                    <a href="{{ route('role.show', ['role' => $role->id]) }}" class="btn btn-secondary btn-sm me-1 mb-1">
-                                        <i class="fa-solid fa-magnifying-glass"></i> Visualizar</a>
                                     @endcan
                                     
                                     @can('edit-role')
