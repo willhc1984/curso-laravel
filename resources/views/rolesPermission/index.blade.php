@@ -44,9 +44,13 @@
                                 <td class="d-md-flex justify-content-center">
                                 
                                     @if (in_array($permission->id, $rolePermissions ?? []))
-                                        <span class="badge bg-success">Liberado</span>
+                                        <a href="{{ route('role-permission.update', ['role' => $role->id, 'permission' => $permission->id]) }}">
+                                            <span class="badge bg-success">Liberado</span>
+                                        </a>
                                     @else
-                                        <span class="badge bg-danger">Bloqueado</span>
+                                        <a href="{{ route('role-permission.update', ['role' => $role->id, 'permission' => $permission->id]) }}">
+                                            <span class="badge bg-danger">Bloqueado</span>
+                                        </a>
                                     @endif
 
                                 </td>

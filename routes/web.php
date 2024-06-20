@@ -93,5 +93,6 @@ Route::group(['middleware' => 'auth'], function(){
 
     //Permissões do papel
     Route::get('/index-role-permission/{role}', [RolePermissionController::class, 'index'])->name('role-permission.index');
+    Route::get('/update-role-permission/{role}/{permission}', [RolePermissionController::class, 'update'])->name('role-permission.update');
 
 });
