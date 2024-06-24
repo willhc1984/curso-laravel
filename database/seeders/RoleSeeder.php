@@ -26,13 +26,13 @@ class RoleSeeder extends Seeder
                 'name' => 'Admin'
             ]);
 
-            $admin->givePermissionTo([
-                'index-course', 'index-user', 'index-classe',
-                'show-course', 'show-user', 'show-classe',
-                'create-course', 'create-user', 'create-classe',
-                'edit-course', 'edit-user', 'edit-classe',
-                'destroy-course', 'destroy-user', 'destroy-classe',
-            ]);
+            //$admin->givePermissionTo([
+              //  'index-course', 'index-user', 'index-classe',
+                //'show-course', 'show-user', 'show-classe',
+                //'create-course', 'create-user', 'create-classe',
+                //'edit-course', 'edit-user', 'edit-classe',
+                //'destroy-course', 'destroy-user', 'destroy-classe',
+            //]);
         }
 
         //Atribuir permissão para o papel
@@ -41,13 +41,13 @@ class RoleSeeder extends Seeder
                 'name' => 'Professor'
             ]);
 
-            $professor->givePermissionTo([
-                'index-course',
-                'show-course',
-                'create-course',
-                'edit-course',
-                'destroy-course'
-            ]);
+            //$professor->givePermissionTo([
+            //    'index-course',
+              //  'show-course',
+                //'create-course',
+              //  'edit-course',
+              //  'destroy-course'
+            //]);
         }
 
         //Atribuir permissão para o papel
@@ -56,10 +56,10 @@ class RoleSeeder extends Seeder
                 'name' => 'Tutor'
             ]);
 
-            $tutor->givePermissionTo([
-                'index-course',
-                'show-course',
-            ]);
+           // $tutor->givePermissionTo([
+              //  'index-course',
+              //  'show-course',
+           // ]);
         }
 
         //Atribuir permissão para o papel
@@ -68,10 +68,10 @@ class RoleSeeder extends Seeder
                 'name' => 'Aluno',
             ]);
 
-            $aluno->givePermissionTo([
-                'index-course',
-                'show-course',
-            ]);
+            //$aluno->givePermissionTo([
+             //   'index-course',
+             //   'show-course',
+           // ]);
         }
     }
 }

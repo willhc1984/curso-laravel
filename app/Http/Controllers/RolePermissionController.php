@@ -11,9 +11,15 @@ use Spatie\Permission\Models\Role;
 
 class RolePermissionController extends Controller
 {
+    //Executar o construct quando instanciar a classe - verifica permissão de quem esta logado
+    public function __construct(){
+        $this->middleware('auth');
+        $this->middleware('permission:index-role-permission', ['only' => ['index']]);
+        $this->middleware('permission:update-role-permission', ['only' => ['update']]);
+    }
+
     //Listar permissões do papel
-    public function index(Role $role)
-    {
+    public function index(Role $role)    {
 
         //Verificar se é super admin, não permitir visualizar as permissões
         if ($role->name == 'Super Admin') {
@@ -63,7 +69,7 @@ class RolePermissionController extends Controller
             //Redirecionar o ussuario e enviar mensagem de sucesso
             return redirect()->route('role-permission.index', ['role' => $role->id])->with('success', 'Permissão bloqueada!');
         }else{
-            //Atribui permissão ao papel
+            //Atribui permissão ao papel (liberar)
             $role->givePermissionTo($permission);
             //Salvar no log
             Log::info('Permissão atribuida ao papel.', ['action_user_id' => Auth::id(), 'permissao' => $request->permission]);

@@ -37,7 +37,6 @@ class RoleController extends Controller
 
     //Abrir formulario de editar
     public function edit(Role $role){
-        dd($role);
         //Carrega a view
         return view('roles.edit', ['menu' => 'roles', 'role' => $role]);
     }
@@ -114,6 +113,19 @@ class RoleController extends Controller
 
     //Exclui papel no banco de dados
     public function destroy(Role $role){
+        //Não permitir excluir super admin
+        if($role->name == "Super Admin"){
+            Log::warning('Papel Super Admin não pode ser excluido.', ['papel_id' => $role->id, 'action_user_id' => Auth::id()]);
+            //Redireciona usuario com msg de successo
+            return redirect()->route('role.index')->with('error','Papel Super Admin não pode ser excluido!');
+        }
+        //Não permitir excluir papel com ususario associado
+        if($role->users->isNotEmpty()){
+            //Salva no log
+            Log::warning('Papel possiu ususarios associados.', ['papel_id' => $role->id, 'action_user_id' => Auth::id()]);
+            //Redireciona usuario com msg de successo
+            return redirect()->route('role.index')->with('error','Papel não pode ser exluido pois possui usuários associados.');
+        }
         //Exluir registro
         try{
             $role->delete();

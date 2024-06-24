@@ -111,7 +111,7 @@ class CourseController extends Controller
 
             //Salvando log
             Log::warning('Curso não atualizado!', ['error' => $e->getMessage()]);
-             
+            //Retorno com mensagem de erro
             return back()->withInput()->with('error','Curso não atualizado!');
         }
     }

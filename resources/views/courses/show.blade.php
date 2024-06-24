@@ -20,8 +20,10 @@
                             <i class="fa-solid fa-square-plus"></i> Cadastrar</a>
                     @endcan
 
+                    @can('index-classe')
                     <a href="{{ route('classe.index', ['course' => $course->id]) }}" class="btn btn-info btn-sm me-1"><i
                             class="fa-solid fa-list"></i> Aulas</a>
+                    @endcan
 
                     @can('edit-course')
                         <a href="{{ route('course.edit', ['course' => $course->id]) }}" class="btn btn-warning btn-sm me-1"><i

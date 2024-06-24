@@ -66,7 +66,7 @@
                             </a>
                         @endcan
 
-                        @can('index-user')
+                        @can('index-role')
                             <a @class(['nav-link', 'active' => isset($menu) && $menu == 'roles']) class="nav-link" href="{{ route('role.index') }}">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-user-check"></i></i></i></div>
                                 Papéis
