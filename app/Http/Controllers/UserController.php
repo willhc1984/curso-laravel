@@ -25,12 +25,24 @@ class UserController extends Controller
     }
 
     //Listar usuarios
-    public function index(){
-        //Recuperar os registros no banco de dados
-        $users = User::orderByDesc('created_at')->paginate(5);
+    public function index(Request $request){
+        //Recuperar os registros no banco de dados conforme parametros do formulario de pesquisa
+        $users = User::when($request->has('name'), function($whenQuery) use ($request){
+            $whenQuery->where('name', 'like', '%' . $request->name . '%');
+        })
+        ->when($request->has('email'), function($whenQuery) use ($request){
+            $whenQuery->where('email', 'like', '%' . $request->email . '%');
+        })
+        ->orderByDesc('created_at')
+        ->paginate(5);
 
         //Carregar view
-        return view('users.index', ['menu' => 'users', 'users' => $users]);
+        return view('users.index', [
+            'menu' => 'users', 
+            'users' => $users,
+            'name' => $request->name,
+            'email' => $request->email
+        ]);
     }
 
     //Detalhes do usuario

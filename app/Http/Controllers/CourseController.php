@@ -30,11 +30,7 @@ class CourseController extends Controller
     }
 
     public function show(Request $request, Course $course){
-
         // Recuperar informações do BD
-        //$course = Course::where('id', $request->course)->first();
-        
-        // Carregar view
         return view('courses/show', ['menu' => 'courses', 'course' => $course]);
     }
 
@@ -108,7 +104,6 @@ class CourseController extends Controller
         }catch(Exception $e){
             //Operação não concluida
             DB::rollBack();
-
             //Salvando log
             Log::warning('Curso não atualizado!', ['error' => $e->getMessage()]);
             //Retorno com mensagem de erro

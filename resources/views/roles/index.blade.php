@@ -4,7 +4,7 @@
 
     <div class="container-fluid px-4">
         <div class="mb1 space-between-elements">
-            <h2 class="mt-3">Dashboard</h2>
+            <h2 class="mt-3">Papéis</h2>
             <ol class="breadcrumb mb-3 mt-3 p-1 rounded bg-light">
                 <li class="breadcrumb-item"><a class="text-decoration-none" href="/dashboard">Dashboard</a></li>
                 <li class="breadcrumb-item active">Papéis</li>
