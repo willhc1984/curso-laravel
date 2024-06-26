@@ -17,17 +17,29 @@
             <div class="card-body">
                 <form action="{{ route('user.index') }}">
                     <div class="row">
-                        <div class="col-md-4 col-sm-12">
+                        <div class="col-md-6 col-sm-12">
                             <label class="form-label" for="name">Nome:</label>
-                            <input type="text" name="name" id="name" class="form-control" value="{{ $name }}"
-                                placeholder="Nome do usuário">
+                            <input type="text" name="name" id="name" class="form-control"
+                                value="{{ $name }}" placeholder="Nome do usuário">
                         </div>
-                        <div class="col-md-4 col-sm-12">
+                        <div class="col-md-6 col-sm-12">
                             <label class="form-label" for="email">E-mail:</label>
-                            <input type="text" name="email" id="email" class="form-control" value="{{ $email }}"
-                                placeholder="E-mail do usuário">
+                            <input type="text" name="email" id="email" class="form-control"
+                                value="{{ $email }}" placeholder="E-mail do usuário">
                         </div>
-                        <div class="col-md-4 col-sm-12 mt-4 pt-2">
+                        <div class="col-md-6 col-sm-12">
+                            <label class="form-label" for="data_cadastro_inicio">Data inicial:</label>
+                            <input type="datetime-local" name="data_cadastro_inicio" id="data_cadastro_inicio" class="form-control" value="{{ $data_cadastro_inicio }}"
+                                placeholder="Data inicial">
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <label class="form-label" for="data_cadastro_fim">Data final:</label>
+                            <input type="datetime-local" name="data_cadastro_fim" id="data_cadastro_fim" class="form-control" value="{{ $data_cadastro_fim }}"
+                                placeholder="Data final">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12 mt-2 pt-2">
                             <button type="submit" class="btn btn-info btn-sm"><i class="fa-solid fa-magnifying-glass">
                                 </i> Pesquisar</button>
                             <a href="{{ route('user.index') }}" class="btn btn-warning btn-sm"><i

@@ -33,15 +33,25 @@ class UserController extends Controller
         ->when($request->has('email'), function($whenQuery) use ($request){
             $whenQuery->where('email', 'like', '%' . $request->email . '%');
         })
+        ->when($request->filled('data_cadastro_inicio'), function($whenQuery) use($request){
+            $whenQuery->where('created_at', '>=', \Carbon\Carbon::parse($request->data_cadastro_inicio)->format('Y-m-d H:i:s'));
+        })
+        ->when($request->filled('data_cadastro_fim'), function($whenQuery) use($request){
+            $whenQuery->where('created_at', '<=', \Carbon\Carbon::parse($request->data_cadastro_fim)->format('Y-m-d H:i:s'));
+        })
+
         ->orderByDesc('created_at')
-        ->paginate(5);
+        ->paginate(10)
+        ->withQueryString();
 
         //Carregar view
         return view('users.index', [
             'menu' => 'users', 
             'users' => $users,
             'name' => $request->name,
-            'email' => $request->email
+            'email' => $request->email,
+            'data_cadastro_inicio' => $request->data_cadastro_inicio,
+            'data_cadastro_fim' => $request->data_cadastro_fim,
         ]);
     }
 
