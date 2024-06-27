@@ -29,13 +29,13 @@
                         </div>
                         <div class="col-md-6 col-sm-12">
                             <label class="form-label" for="data_cadastro_inicio">Data inicial:</label>
-                            <input type="datetime-local" name="data_cadastro_inicio" id="data_cadastro_inicio" class="form-control" value="{{ $data_cadastro_inicio }}"
-                                placeholder="Data inicial">
+                            <input type="datetime-local" name="data_cadastro_inicio" id="data_cadastro_inicio"
+                                class="form-control" value="{{ $data_cadastro_inicio }}" placeholder="Data inicial">
                         </div>
                         <div class="col-md-6 col-sm-12">
                             <label class="form-label" for="data_cadastro_fim">Data final:</label>
-                            <input type="datetime-local" name="data_cadastro_fim" id="data_cadastro_fim" class="form-control" value="{{ $data_cadastro_fim }}"
-                                placeholder="Data final">
+                            <input type="datetime-local" name="data_cadastro_fim" id="data_cadastro_fim"
+                                class="form-control" value="{{ $data_cadastro_fim }}" placeholder="Data final">
                         </div>
                     </div>
                     <div class="row">
@@ -54,8 +54,12 @@
             <div class="card-header space-between-elements">
                 <span>Listar</span>
                 <span>
-                    <a href="{{ route('user.create') }}" class="btn btn-success btn-sm">
-                        <i class="fa-solid fa-square-plus"></i> Cadastrar</a>
+                    @can('create-user')
+                        <a href="{{ route('user.create') }}" class="btn btn-success btn-sm">
+                            <i class="fa-solid fa-square-plus"></i> Cadastrar</a>
+                    @endcan
+                    <a href="{{ route('user.generate-pdf') }}" class="btn btn-warning btn-sm">
+                        <i class="fa-solid fa-file-pdf"></i> Gerar PDF</a>
                 </span>
             </div>
 

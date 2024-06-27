@@ -64,6 +64,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/edit-user-password/{user}', [UserController::class, 'editPassword'])->name('user.edit-password');
     Route::put('/update-user-password/{user}', [UserController::class, 'updatePassword'])->name('user.update-password');
     Route::delete('/destroy-user/{user}', [UserController::class, 'destroy'])->name('user.destroy');
+    Route::get('/generate-pdf-users', [UserController::class, 'generatePdf'])->name('user.generate-pdf');
 
     //Cursos
     Route::get('/index-course', [CourseController::class, 'index'])->name('course.index');
