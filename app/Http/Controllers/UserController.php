@@ -23,6 +23,7 @@ class UserController extends Controller
         $this->middleware('permission:create-user', ['only' => ['create']]);
         $this->middleware('permission:edit-user', ['only' => ['edit']]);
         $this->middleware('permission:destroy-user', ['only' => ['destroy']]);
+        $this->middleware('permission:generate-pdf--user', ['only' => ['generatePdf']]);
     }
 
     //Listar usuarios
@@ -233,9 +234,27 @@ class UserController extends Controller
     }
 
     //Gerar PDF dos usuarios cadastrados
-    public function generatePdf(){
+    public function generatePdf(Request $request){
         //Recuperar os registros do banco de dados
-        $users = User::orderByDesc('id')->get();
+        //$users = User::orderByDesc('id')->get();
+
+        //Recuperar os registros no banco de dados conforme parametros do formulario de pesquisa
+        $users = User::when($request->has('name'), function($whenQuery) use ($request){
+            $whenQuery->where('name', 'like', '%' . $request->name . '%');
+        })
+        ->when($request->has('email'), function($whenQuery) use ($request){
+            $whenQuery->where('email', 'like', '%' . $request->email . '%');
+        })
+        ->when($request->filled('data_cadastro_inicio'), function($whenQuery) use($request){
+            $whenQuery->where('created_at', '>=', \Carbon\Carbon::parse($request->data_cadastro_inicio)->format('Y-m-d H:i:s'));
+        })
+        ->when($request->filled('data_cadastro_fim'), function($whenQuery) use($request){
+            $whenQuery->where('created_at', '<=', \Carbon\Carbon::parse($request->data_cadastro_fim)->format('Y-m-d H:i:s'));
+        })
+
+        ->orderByDesc('created_at')
+        ->get();
+
         //Carregar  a string com o HTML/conteudo
         $pdf = PDF::loadView('users.generate-pdf', ['users' => $users])->setPaper('a4', 'portrait');
         //Fazer download do arquivo
