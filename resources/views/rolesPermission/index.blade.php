@@ -36,6 +36,7 @@
                             <th scope="col">#</th>
                             <th scope="col">Título</th>
                             <th scope="col">Nome</th>
+                            <th scope="col" class="text-center">Situação</th>
                             <th scope="col" class="text-center">Ações</th>
                         </tr>
                     </thead>
@@ -44,19 +45,31 @@
                             <tr>
                                 <th scope="row">{{ $permission->id }}</th>
                                 <td>{{ $permission->title }}</td>
-                                <td>{{ $permission->name }}</td>
+                                <td> {{ $permission->name }}</td>
                                 <td class="d-md-flex justify-content-center">
-                                
+
                                     @if (in_array($permission->id, $rolePermissions ?? []))
-                                        <a href="{{ route('role-permission.update', ['role' => $role->id, 'permission' => $permission->id]) }}">
+                                        <a
+                                            href="{{ route('role-permission.update', ['role' => $role->id, 'permission' => $permission->id]) }}">
                                             <span class="badge bg-success">Liberado</span>
                                         </a>
                                     @else
-                                        <a href="{{ route('role-permission.update', ['role' => $role->id, 'permission' => $permission->id]) }}">
+                                        <a
+                                            href="{{ route('role-permission.update', ['role' => $role->id, 'permission' => $permission->id]) }}">
                                             <span class="badge bg-danger">Bloqueado</span>
                                         </a>
                                     @endif
-
+                                </td>
+                                <td>
+                                    @can('destroy-permission')
+                                        <form method="POST" action="{{ route('permission.destroy', ['permission' => $permission->id]) }}">
+                                            @csrf
+                                            @method('delete')
+                                            <button class="btn btn-danger btn-sm me-1 mb-1 align-center" type="submit"
+                                                onclick="return confirm('Tem certeza que deseja excluir este registro?')">
+                                                <i class="fa-solid fa-trash-can"></i> Apagar</button>
+                                        </form>
+                                    @endcan
                                 </td>
                             </tr>
 

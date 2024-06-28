@@ -17,6 +17,7 @@ class PermissionController extends Controller
     public function __construct(){
         $this->middleware('auth');
         $this->middleware('permission:create-permission', ['only' => ['create']]);
+        $this->middleware('permission:destroy-permission', ['only' => ['destroy']]);
     }
 
     //Tela de cadastrar permissão
@@ -29,7 +30,7 @@ class PermissionController extends Controller
     public function store(PermissionRequest $request){
         //Validação dos dados so formulário
         $request->validated();
-        
+
         //Inicio da transação
         DB::beginTransaction();
 
@@ -55,6 +56,22 @@ class PermissionController extends Controller
              DB::rollBack();
              //Redireciona com mensagem de erro
              return back()->withInput()->with('error', 'Permissão não criada!');
+        }
+    }
+
+    //Excluir permissão
+    public function destroy(Permission $permission){
+        try{
+            $permission->delete();
+            //Salavndo no log
+            Log::info('Permissão excluida com sucesso!', ['id' => $permission->id, 'action_user_id' => Auth::id()]);
+            //Redireciona com mensagem de sucesso
+            return redirect()->route('role.index')->with('success', 'Permissão excluida com sucesso!');
+        }catch(Exception $e){
+            //Salvando log de erro
+            Log::warning('Permissão não excluida com sucesso.', ['id' => $permission->id, 'action_user_id' => Auth::id()]);
+            //Redireciona com mensagemde erro
+            return redirect()->route('role.index')->with('erro', 'Papel não excluido.');
         }
     }
 }
