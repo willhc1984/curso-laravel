@@ -20,10 +20,23 @@ class PermissionController extends Controller
         $this->middleware('permission:destroy-permission', ['only' => ['destroy']]);
     }
 
-    //Tela de cadastrar permissão
-    public function create() {
-        return view('permission.create');
+    //Listar permissões cadastradas
+    public function index(){
+        //Recuperar registros do banco de dados
+        $permissions = Permission::orderBy('id')->paginate(10);
+        //Salvar no log
+        Log::info('Listar permissões', ['action_user_id' => Auth::id()]);
+        //Carrega a view
+        return view('permissions.index', [
+            'menu' => 'permissions', 
+            'permissions' => $permissions
+        ]);
+    }
 
+    //Carrega view de cadastrar permissão
+    public function create() {
+        //Carrega view para cadastrar
+        return view('permissions.create');
     }
 
     //Cadastrar permissão no banco de dados
@@ -47,7 +60,7 @@ class PermissionController extends Controller
             DB::commit();
 
             //Redireciona com mensagem de sucesso
-            return redirect()->route('role.index')->with('success', 'Permissão cadastrada com sucesso!');
+            return redirect()->route('permissions.index')->with('success', 'Permissão cadastrada com sucesso!');
             
         }catch(Exception $e){
             //Salva log de erro
@@ -66,12 +79,12 @@ class PermissionController extends Controller
             //Salavndo no log
             Log::info('Permissão excluida com sucesso!', ['id' => $permission->id, 'action_user_id' => Auth::id()]);
             //Redireciona com mensagem de sucesso
-            return redirect()->route('role.index')->with('success', 'Permissão excluida com sucesso!');
+            return redirect()->route('permissions.index')->with('success', 'Permissão excluida com sucesso!');
         }catch(Exception $e){
             //Salvando log de erro
             Log::warning('Permissão não excluida com sucesso.', ['id' => $permission->id, 'action_user_id' => Auth::id()]);
             //Redireciona com mensagemde erro
-            return redirect()->route('role.index')->with('erro', 'Papel não excluido.');
+            return redirect()->route('permissions.index')->with('erro', 'Papel não excluido.');
         }
     }
 }

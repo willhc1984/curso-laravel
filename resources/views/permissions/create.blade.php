@@ -21,7 +21,7 @@
                 
                 <x-alert /> 
 
-                <form class="row g-3" action="{{ route('permission.store') }}" method="POST">
+                <form class="row g-3" action="{{ route('permissions.store') }}" method="POST">
                     @csrf
                     @method('POST')
                     <div class="col-12">
@@ -30,7 +30,7 @@
                             placeholder="Título da página" >
                     </div>
                     <div class="col-12">
-                        <label  for="name">Nome da página:</label>
+                        <label  for="name">Nome da permissão:</label>
                         <input type="text" class="form-control" name="name" id="name" value="{{ old('name') }}"
                             placeholder="Nome da página" >
                     </div>

@@ -68,8 +68,15 @@
 
                         @can('index-role')
                             <a @class(['nav-link', 'active' => isset($menu) && $menu == 'roles']) class="nav-link" href="{{ route('role.index') }}">
-                                <div class="sb-nav-link-icon"><i class="fa-solid fa-user-check"></i></i></i></div>
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-scroll"></i></i></i></i></div>
                                 Papéis
+                            </a>
+                        @endcan
+
+                         @can('index-permission')
+                            <a @class(['nav-link', 'active' => isset($menu) && $menu == 'permissions']) class="nav-link" href="{{ route('permissions.index') }}">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-user-lock"></i></i></i></i></div>
+                                Permissões
                             </a>
                         @endcan
 

@@ -95,9 +95,10 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/store-role', [RoleController::class, 'store'])->name('role.store');
 
     //Permissões
-    Route::get('/create-permission', [PermissionController::class, 'create'])->name('permission.create');
-    Route::post('/store-permission', [PermissionController::class, 'store'])->name('permission.store');
-    Route::delete('/destroy-permission/{permission}', [PermissionController::class, 'destroy'])->name('permission.destroy');
+    Route::get('/index-permission', [PermissionController::class, 'index'])->name('permissions.index');
+    Route::get('/create-permission', [PermissionController::class, 'create'])->name('permissions.create');
+    Route::post('/store-permission', [PermissionController::class, 'store'])->name('permissions.store');
+    Route::delete('/destroy-permission/{permission}', [PermissionController::class, 'destroy'])->name('permissions.destroy');
 
     //Permissões do papel
     Route::get('/index-role-permission/{role}', [RolePermissionController::class, 'index'])->name('role-permission.index');
