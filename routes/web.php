@@ -6,10 +6,12 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\RolePermissionController;
 use App\Http\Controllers\UserController;
+use Spatie\Permission\Contracts\Permission;
 
 /*
 |--------------------------------------------------------------------------
@@ -91,6 +93,10 @@ Route::group(['middleware' => 'auth'], function(){
     Route::delete('/destroy-role/{role}', [RoleController::class, 'destroy'])->name('role.destroy');
     Route::put('/update-role/{role}', [RoleController::class, 'update'])->name('role.update');
     Route::post('/store-role', [RoleController::class, 'store'])->name('role.store');
+
+    //Permissões
+    Route::get('/create-permission', [PermissionController::class, 'create'])->name('permission.create');
+    Route::post('/store-permission', [PermissionController::class, 'store'])->name('permission.store');
 
     //Permissões do papel
     Route::get('/index-role-permission/{role}', [RolePermissionController::class, 'index'])->name('role-permission.index');

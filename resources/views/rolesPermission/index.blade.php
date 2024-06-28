@@ -19,6 +19,10 @@
                         <a href="{{ route('role.index') }}" class="btn btn-info btn-sm">
                             <i class="fa-solid fa-list"></i> Papéis</a>
                     @endcan
+                    @can('create-permission')
+                        <a href="{{ route('permission.create') }}" class="btn btn-success btn-sm">
+                            <i class="fa-solid fa-list"></i> Cadastrar permissão</a>
+                    @endcan
                 </span>
             </div>
 
