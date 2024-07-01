@@ -18,6 +18,8 @@ class PermissionController extends Controller
         $this->middleware('auth');
         $this->middleware('permission:create-permission', ['only' => ['create']]);
         $this->middleware('permission:destroy-permission', ['only' => ['destroy']]);
+        $this->middleware('permission:index-permission', ['only' => ['index']]);
+        $this->middleware('permission:store-permission', ['only' => ['store']]);
     }
 
     //Listar permissões cadastradas

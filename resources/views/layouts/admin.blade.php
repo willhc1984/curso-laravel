@@ -10,6 +10,8 @@
     <link href="{{ asset('css/all.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <title>Curso Celke</title>
 </head>
 
@@ -54,34 +56,34 @@
 
                         @can('index-course')
                             <a @class(['nav-link', 'active' => isset($menu) && $menu == 'courses']) class="nav-link" href="{{ route('course.index') }}">
-                                <div class="sb-nav-link-icon"><i class="fa-solid fa-chalkboard-user"></i></i></div>
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-chalkboard-user"></i></div>
                                 Cursos
                             </a>
                         @endcan
 
                         @can('index-user')
                             <a @class(['nav-link', 'active' => isset($menu) && $menu == 'users']) class="nav-link" href="{{ route('user.index') }}">
-                                <div class="sb-nav-link-icon"><i class="fa-solid fa-users"></i></i></div>
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-users"></i></div>
                                 Usuários
                             </a>
                         @endcan
 
                         @can('index-role')
                             <a @class(['nav-link', 'active' => isset($menu) && $menu == 'roles']) class="nav-link" href="{{ route('role.index') }}">
-                                <div class="sb-nav-link-icon"><i class="fa-solid fa-scroll"></i></i></i></i></div>
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-scroll"></i></div>
                                 Papéis
                             </a>
                         @endcan
 
                          @can('index-permission')
                             <a @class(['nav-link', 'active' => isset($menu) && $menu == 'permissions']) class="nav-link" href="{{ route('permissions.index') }}">
-                                <div class="sb-nav-link-icon"><i class="fa-solid fa-user-lock"></i></i></i></i></div>
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-user-lock"></i></div>
                                 Permissões
                             </a>
                         @endcan
 
                         <a class="nav-link" href="{{ route('login.destroy') }}">
-                            <div class="sb-nav-link-icon"><i class="fa-solid fa-right-from-bracket"></i></i></div>
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-right-from-bracket"></i></div>
                             Sair
                         </a>
 
