@@ -91,13 +91,22 @@
                                     <a href="{{ route('user.edit', ['user' => $user->id]) }}"
                                         class="btn btn-primary btn-sm me-1 mb-1">
                                         <i class="fa-solid fa-pen-to-square"></i> Editar</a>
-                                    <form method="POST" action="{{ route('user.destroy', ['user' => $user->id]) }}">
+                                    {{-- <form method="POST" action="{{ route('user.destroy', ['user' => $user->id]) }}">
                                         @csrf
                                         @method('delete')
                                         <button class="btn btn-danger btn-sm me-1 mb-1" type="submit"
                                             onclick="return confirm('Tem certeza que desja excluir este registro?')">
                                             <i class="fa-solid fa-trash-can"></i> Apagar</button>
-                                    </form>
+                                    </form> --}}
+                                    @can('destroy-user')
+                                        <form id="formDelete{{ $user->id }}" method="POST" action="{{ route('user.destroy', ['user' => $user->id]) }}">
+                                            @csrf
+                                            @method('delete')
+                                            <button type="submit" class="btn btn-danger btn-sm me-1 mb-1 btnDelete"
+                                                data-delete-id="{{ $user->id }}"><i class="fa-regular fa-trash-can"></i>
+                                                Apagar</button>
+                                        </form>
+                                    @endcan
                                 </td>
                             </tr>
                         @empty
@@ -112,6 +121,7 @@
 
             </div>
         </div>
-
     </div>
+    
+    <script src="{{ asset('js/script.js') }}"></script>
 @endsection
